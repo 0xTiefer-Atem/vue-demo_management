@@ -15,11 +15,12 @@
         <div class="toggle-button" @click="toggleCollapse">|||</div>
 <!--        侧边栏菜单区域-->
         <el-menu background-color="#333744"
-                text-color="#fff"
-                active-text-color="#409eff"
-                :collapse="isCollapse"
-                :collapse-transition="false"
-                :router="true">
+        text-color="#fff"
+        active-text-color="#409eff"
+        :collapse="isCollapse"
+        :collapse-transition="false"
+        :router="true"
+        default-active="/home/appointment">
 <!--          一级菜单-->
           <el-menu-item index="/home/appointment">
             <i class="el-icon-s-management"></i>
