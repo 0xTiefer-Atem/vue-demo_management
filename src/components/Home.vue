@@ -20,27 +20,12 @@
         :collapse="isCollapse"
         :collapse-transition="false"
         :router="true"
-        default-active="/home/appointment">
+        :default-active="activePath">
 <!--          一级菜单-->
-          <el-menu-item :index="baseUrl + '/appointment'">
-            <i class="el-icon-s-management"></i>
-            <span slot="title">预约管理</span>
-          </el-menu-item>
-          <el-menu-item :index="baseUrl + '/queue'">
-            <i class="el-icon-s-claim"></i>
-            <span slot="title">排号管理</span>
-          </el-menu-item>
-          <el-menu-item :index="baseUrl + '/treatment'">
-            <i class="el-icon-s-help"></i>
-            <span slot="title">就诊安排</span>
-          </el-menu-item>
-          <el-menu-item :index="baseUrl + '/case'">
-            <i class="el-icon-menu"></i>
-            <span slot="title">病例管理</span>
-          </el-menu-item>
-          <el-menu-item :index="baseUrl+ '/staff'">
-            <i class="el-icon-s-check"></i>
-            <span slot="title">职工管理</span>
+          <el-menu-item v-for="menu in menuList" :index="baseUrl + '' + menu.menuPath"
+                        @click="saveNavState(baseUrl + '' + menu.menuPath)">
+            <i :class="menu.menuIcon"></i>
+            <span slot="title">{{menu.menuName}}</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -60,11 +45,44 @@
       return {
         //是否折叠
         isCollapse: false,
-        baseUrl: '/home'
+        baseUrl: '/home',
+        menuList: [
+          {
+            menuName: '预约管理',
+            menuPath: '/appointment',
+            menuIcon: 'el-icon-s-management'
+          },
+          {
+            menuName: '排号管理',
+            menuPath: '/queue',
+            menuIcon: 'el-icon-message-solid'
+          },
+          {
+            menuName: '病例录入',
+            menuPath: '/case',
+            menuIcon: 'el-icon-s-order'
+          },
+          {
+            menuName: '排班日程',
+            menuPath: '/treatment',
+            menuIcon: 'el-icon-s-help'
+          },
+          {
+            menuName: '职工管理',
+            menuPath: '/staff',
+            menuIcon: 'el-icon-s-custom'
+          }
+        ],
+        //被激活的链接地址
+        activePath: ''
       }
+    },
+    created() {
+      this.activePath = window.sessionStorage.getItem('activePath');
     },
     methods: {
       logOut() {
+        window.sessionStorage.clear();
         this.$store.commit('logOutUser');
         this.$router.replace('/login')
       },
@@ -72,6 +90,12 @@
       //点击按钮切换菜单的折叠
       toggleCollapse() {
         this.isCollapse = !this.isCollapse
+      },
+      //保存链接的激活状态
+      saveNavState(activePath) {
+        console.log(activePath);
+        window.sessionStorage.setItem('activePath', activePath)
+        this.activePath = activePath
       }
     }
   }

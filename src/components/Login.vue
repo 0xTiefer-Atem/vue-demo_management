@@ -69,7 +69,7 @@
               this.$message.success("登录成功!");
               let staff_id = data.data.datas.staff_id;
               this.$store.commit('updateStaffId', staff_id)
-              this.$router.replace("/home/")
+              this.$router.replace("/home")
             }else {
               this.$message.error(data.data.datas);
             }
