@@ -5,20 +5,20 @@
       <div class="avatar_box">
         <img src="../assets/logo.png" alt="">
       </div>
-      <el-form label-width="0px" class="login_form">
+      <el-form :model="loginForm" label-width="0px" class="login_form">
 <!--        用户名-->
         <el-form-item >
-          <el-input prefix-icon="el-icon-user-solid"></el-input>
+          <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
         </el-form-item>
 <!--        密码-->
         <el-form-item >
-          <el-input prefix-icon="el-icon-s-promotion"></el-input>
+          <el-input type="password" v-model="loginForm.password" prefix-icon="el-icon-s-promotion"></el-input>
         </el-form-item>
 
 <!--        按钮区域-->
         <el-form-item class="btns">
-          <el-button type="primary">登录</el-button>
-          <el-button type="info">重置</el-button>
+          <el-button type="primary" @click="login">登录</el-button>
+          <el-button type="info" @click="reset">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -27,7 +27,47 @@
 
 <script>
   export default {
-    name: "Login.vue"
+    name: "Login.vue",
+    data() {
+      return {
+        //这是登录的数据绑定对象
+        loginForm: {
+          username: '',
+          password: ''
+        }
+      }
+    },
+    methods: {
+      login() {
+        console.log(this.loginForm.username, this.loginForm.password);
+        this.$alert('登录失败', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'error',
+              message: `action: ${ action }`
+            });
+          }
+        });
+      },
+      reset() {
+        this.$confirm('确定重置密码?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '重置成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '重置失败'
+          });
+        });
+      }
+    }
   }
 </script>
 
