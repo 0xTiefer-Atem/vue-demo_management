@@ -12,7 +12,7 @@
       <el-row>
         <el-col :span="15">
           <!--      搜索区域-->
-          <el-input placeholder="请输入内容">
+          <el-input placeholder="请输入内容" v-model="reserveId">
             <el-button slot="append" icon="el-icon-search" @click="searchByReserveId"></el-button>
           </el-input>
         </el-col>
@@ -52,14 +52,14 @@
       return {
         appointmentList: [
           {
-            reserveId: 1,
+            reserveId: "001",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
             reserveTime: '2020-2-19 8:00:00'
           },
           {
-            reserveId: 2,
+            reserveId: "002",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
@@ -67,7 +67,7 @@
             status: 'SUCCESS',
           },
           {
-            reserveId: 3,
+            reserveId: "003",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
@@ -75,7 +75,7 @@
             status: 'SUCCESS',
           },
           {
-            reserveId: 4,
+            reserveId: "004",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
@@ -83,7 +83,7 @@
             status: 'SUCCESS',
           },
           {
-            reserveId: 5,
+            reserveId: "005",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
@@ -91,7 +91,7 @@
             status: 'SUCCESS',
           },
           {
-            reserveId: 6,
+            reserveId: "006",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
@@ -105,11 +105,13 @@
           pageSizes: [10, 20, 30, 40],
           currentPage:1
         },
+        reserveId: "",
       }
     },
     methods: {
       searchByReserveId() {
         //网络请求接口,给appointmentList
+        console.log(this.reserveId);
       },
       //监听pagesize的改变
       handleSizeChange(newSize) {
