@@ -52,16 +52,17 @@
     },
     methods: {
       login() {
-        console.log(this.loginForm.username, this.loginForm.password);
-        this.$alert('登录失败', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'error',
-              message: `action: ${ action }`
-            });
-          }
+        this.$refs.loginFormRef.validate().then(res => {
+          console.log(res);
+        }).catch(err => {
+          console.log(err);
         });
+
+        //登录失败消息
+        // console.log(this.loginForm.username, this.loginForm.password);
+        // this.$alert('登录失败', {
+        //   confirmButtonText: '确定',
+        // });
       },
       resetLoginForm() {
         this.$confirm('确定重置密码?', '提示', {
