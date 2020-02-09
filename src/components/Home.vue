@@ -18,32 +18,36 @@
                 text-color="#fff"
                 active-text-color="#409eff"
                 :collapse="isCollapse"
-                :collapse-transition="false">
+                :collapse-transition="false"
+                :router="true">
 <!--          一级菜单-->
-          <el-menu-item index="1">
+          <el-menu-item index="/home/appointment">
             <i class="el-icon-s-management"></i>
             <span slot="title">预约管理</span>
           </el-menu-item>
-          <el-menu-item index="2">
+          <el-menu-item index="/home/queue">
             <i class="el-icon-s-claim"></i>
             <span slot="title">排号管理</span>
           </el-menu-item>
-          <el-menu-item index="3">
+          <el-menu-item index="/home/treatment">
             <i class="el-icon-s-help"></i>
             <span slot="title">就诊安排</span>
           </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item index="/home/case">
             <i class="el-icon-menu"></i>
             <span slot="title">病例管理</span>
           </el-menu-item>
-          <el-menu-item index="5">
+          <el-menu-item index="/home/staff">
             <i class="el-icon-s-check"></i>
             <span slot="title">职工管理</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
 <!--      右侧内容主体-->
-      <el-main>Main</el-main>
+      <el-main>
+<!--        路由占位符-->
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
