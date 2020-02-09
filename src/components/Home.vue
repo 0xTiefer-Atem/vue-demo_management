@@ -1,7 +1,13 @@
 <template>
   <el-container class="home-container">
 <!--    头部区域-->
-    <el-header>Header<el-button type="info" @click="logOut">退出</el-button></el-header>
+    <el-header>
+      <div>
+        <img class="logo-img" src="../assets/logo.png" alt="">
+        <span class="system_title">医生后台管理系统</span>
+      </div>
+      <el-button type="info" @click="logOut">退出</el-button>
+      </el-header>
 <!--    页面主体区-->
     <el-container>
 <!--      侧边栏-->
@@ -35,6 +41,19 @@
   }
   .el-header {
     background-color: #373D41;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+  }
+  .el-header div {
+    display: flex;
+    align-items: center;
+  }
+  .el-header div span {
+    margin-left: 15px;
   }
 
   .el-aside {
@@ -43,5 +62,9 @@
 
   .el-main {
     background-color: #EAEDF1;
+  }
+  .logo-img {
+    width: 50px;
+    height: 50px;
   }
 </style>
