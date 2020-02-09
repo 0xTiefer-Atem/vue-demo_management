@@ -42,11 +42,10 @@
         <el-row>
           <el-col :span="8">
             <el-form-item  label="药物名称">
-              <el-select v-model="form.medic" placeholder="请选择药物">
+              <el-select v-model="form.medicId" placeholder="请选择药物">
                 <el-option v-for="medic in form.medicMenus"
                            :label="medic.medicName"
-                           :key="medic.medicName"
-                           :value="medic">
+                           :value="medic.medicId">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -74,6 +73,11 @@
                         prop="medicNum"
                         label="数量">
                 </el-table-column>
+                <el-table-column label="操作">
+                  <template slot-scope="scope">
+                    <el-button type="danger" @click="deleteById(scope.row)">删除</el-button>
+                  </template>
+                </el-table-column>
               </el-table>
             </el-form-item>
           </el-col>
@@ -89,7 +93,7 @@
     data() {
       return {
         form: {
-          medic: '',
+          medicId: '',
           currentNum: 1,
           medicMenus:[
             {
@@ -131,18 +135,14 @@
     methods: {
       //添加药物
       addMedic() {
-        let medic_temp = this.form.medic;
-        console.log(medic_temp);
-        let medicName = medic_temp.medicName;
-        let medicId = medic_temp.medicId;
-        let medicNum = this.form.currentNum;
-        let medicObj = {
-          medicName,
-          medicId,
-          medicNum,
-        };
-        this.form.medicList.push(medicObj)
+        let medicObj = this.form.medicMenus.find( item => item.medicId === this.form.medicId);
+        medicObj.medicNum = this.form.currentNum;
+        console.log(medicObj);
+        this.form.medicList.push(medicObj);
         console.log(this.form.medicList);
+      },
+      deleteById(res){
+        console.log(res);
       }
     }
   }
