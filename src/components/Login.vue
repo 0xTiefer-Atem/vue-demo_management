@@ -1,7 +1,9 @@
 <template>
   <div class="login_container">
     <div class="login_box">
-      
+      <div class="avatar_box">
+        <img src="../assets/logo.png" alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -28,4 +30,26 @@
     top: 50%;
     transform: translate(-50%, -50%);
   }
+
+
+  .login_container .avatar_box {
+    height: 130px;
+    width: 130px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 0 10px #ddd;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+  }
+
+  .login_container .avatar_box img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #eeeeee;
+  }
+
 </style>
