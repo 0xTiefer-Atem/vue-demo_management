@@ -11,11 +11,14 @@
 <!--    页面主体区-->
     <el-container>
 <!--      侧边栏-->
-      <el-aside width="200px">
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <div class="toggle-button" @click="toggleCollapse">|||</div>
 <!--        侧边栏菜单区域-->
         <el-menu background-color="#333744"
                 text-color="#fff"
-                active-text-color="#409eff">
+                active-text-color="#409eff"
+                :collapse="isCollapse"
+                :collapse-transition="false">
 <!--          一级菜单-->
           <el-menu-item index="1">
             <i class="el-icon-s-management"></i>
@@ -50,13 +53,19 @@
     name: "Home",
     data() {
       return {
-        menuList: []
+        //是否折叠
+        isCollapse: false
       }
     },
     methods: {
       logOut() {
         this.$store.commit('logOutUser');
         this.$router.replace('/login')
+      },
+
+      //点击按钮切换菜单的折叠
+      toggleCollapse() {
+        this.isCollapse = !this.isCollapse
       }
     }
   }
@@ -68,6 +77,7 @@
   .home-container {
     height: 100%;
   }
+
   .el-header {
     background-color: #373D41;
     display: flex;
@@ -77,10 +87,12 @@
     color: #fff;
     font-size: 20px;
   }
+
   .el-header div {
     display: flex;
     align-items: center;
   }
+
   .el-header div span {
     margin-left: 15px;
   }
@@ -89,11 +101,26 @@
     background-color: #333744;
   }
 
+  .el-aside .el-menu {
+    border-right: none;
+  }
+
   .el-main {
     background-color: #EAEDF1;
   }
+
   .logo-img {
     width: 50px;
     height: 50px;
+  }
+
+  .toggle-button{
+    background-color: #4a5060;
+    font-size: 15px;
+    line-height: 24px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.2em;
+    cursor: pointer;
   }
 </style>
