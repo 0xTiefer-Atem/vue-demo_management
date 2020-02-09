@@ -67,6 +67,7 @@
             if(data.code === 200){
               console.log(data.data.datas);
             }else {
+              this.$message.success("登录成功!");
               this.$message.error(data.data.datas);
             }
           }).catch(error=> {
