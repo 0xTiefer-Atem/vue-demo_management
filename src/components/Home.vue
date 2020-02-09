@@ -1,12 +1,21 @@
 <template>
   <div>
-    Home组件
+    <el-button type="info" @click="logOut">退出</el-button>
   </div>
 </template>
 
 <script>
   export default {
-    name: "Home"
+    name: "Home",
+    data() {
+      return {}
+    },
+    methods: {
+      logOut() {
+        this.$store.commit('logOutUser');
+        this.$router.replace('/login')
+      }
+    }
   }
 </script>
 
