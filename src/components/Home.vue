@@ -22,23 +22,23 @@
         :router="true"
         default-active="/home/appointment">
 <!--          一级菜单-->
-          <el-menu-item index="/home/appointment">
+          <el-menu-item :index="baseUrl + '/appointment'">
             <i class="el-icon-s-management"></i>
             <span slot="title">预约管理</span>
           </el-menu-item>
-          <el-menu-item index="/home/queue">
+          <el-menu-item :index="baseUrl + '/queue'">
             <i class="el-icon-s-claim"></i>
             <span slot="title">排号管理</span>
           </el-menu-item>
-          <el-menu-item index="/home/treatment">
+          <el-menu-item :index="baseUrl + '/treatment'">
             <i class="el-icon-s-help"></i>
             <span slot="title">就诊安排</span>
           </el-menu-item>
-          <el-menu-item index="/home/case">
+          <el-menu-item :index="baseUrl + '/case'">
             <i class="el-icon-menu"></i>
             <span slot="title">病例管理</span>
           </el-menu-item>
-          <el-menu-item index="/home/staff">
+          <el-menu-item :index="baseUrl+ '/staff'">
             <i class="el-icon-s-check"></i>
             <span slot="title">职工管理</span>
           </el-menu-item>
@@ -59,7 +59,8 @@
     data() {
       return {
         //是否折叠
-        isCollapse: false
+        isCollapse: false,
+        baseUrl: '/home'
       }
     },
     methods: {
