@@ -63,18 +63,22 @@
             }
           }).then(result => {
             console.log(result);
+            let data = result.data;
+            if(data.code === 200){
+              console.log(data.data.datas);
+            }else {
+              this.$message.error(data.data.datas);
+            }
           }).catch(error=> {
-            console.log(error);
+            this.$message.error("请求失败!");
           })
         }).catch(err => {
-          console.log(err);
+          this.$message.error("验证失败!");
         });
 
         //登录失败消息
         // console.log(this.loginForm.username, this.loginForm.password);
-        // this.$alert('登录失败', {
-        //   confirmButtonText: '确定',
-        // });
+
       },
       resetLoginForm() {
         this.$confirm('确定重置密码?', '提示', {
