@@ -5,15 +5,16 @@
       <div class="avatar_box">
         <img src="../assets/logo.png" alt="">
       </div>
+      <h3 class="title">云智就医后台系统登陆</h3>
 <!--      登录表单区域-->
       <el-form ref="loginFormRef" :rules="loginFormRules" :model="loginForm" label-width="0px" class="login_form">
 <!--        用户名-->
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
+          <el-input placeholder="账号" v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
         </el-form-item>
 <!--        密码-->
         <el-form-item prop="password">
-          <el-input type="password" v-model="loginForm.password" prefix-icon="el-icon-s-promotion"></el-input>
+          <el-input placeholder="密码" type="password" v-model="loginForm.password" prefix-icon="el-icon-s-promotion"></el-input>
         </el-form-item>
 
 <!--        按钮区域-->
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+  import { request } from '../network/request'
   export default {
     name: "Login.vue",
     data() {
@@ -40,7 +42,7 @@
           //登录框验证
           username: [
             { required: true, message: '请输用户名', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
           ],
           //密码框验证
           password: [
@@ -53,7 +55,17 @@
     methods: {
       login() {
         this.$refs.loginFormRef.validate().then(res => {
-          console.log(res);
+          request({
+            url: "/admin/authority",
+            params: {
+              'username': this.loginForm.username,
+              "password": this.loginForm.password
+            }
+          }).then(result => {
+            console.log(result);
+          }).catch(error=> {
+            console.log(error);
+          })
         }).catch(err => {
           console.log(err);
         });
@@ -130,6 +142,12 @@
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
+  }
+  .title {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .btns{
