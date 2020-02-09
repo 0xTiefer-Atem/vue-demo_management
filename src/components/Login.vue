@@ -5,13 +5,13 @@
       <div class="avatar_box">
         <img src="../assets/logo.png" alt="">
       </div>
-      <el-form :model="loginForm" label-width="0px" class="login_form">
+      <el-form :rules="loginFormRules" :model="loginForm" label-width="0px" class="login_form">
 <!--        用户名-->
-        <el-form-item >
+        <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
         </el-form-item>
 <!--        密码-->
-        <el-form-item >
+        <el-form-item prop="password">
           <el-input type="password" v-model="loginForm.password" prefix-icon="el-icon-s-promotion"></el-input>
         </el-form-item>
 
@@ -34,6 +34,18 @@
         loginForm: {
           username: '',
           password: ''
+        },
+        loginFormRules: {
+          //登录框验证
+          username: [
+            { required: true, message: '请输用户名', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          ],
+          //密码框验证
+          password: [
+            {required: true, message: '请输入密码', trigger: 'blur'},
+            { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
+          ]
         }
       }
     },
