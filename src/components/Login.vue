@@ -35,8 +35,8 @@
       return {
         //这是登录的数据绑定对象
         loginForm: {
-          username: '',
-          password: ''
+          username: '111111',
+          password: '123456'
         },
         loginFormRules: {
           //登录框验证
@@ -66,8 +66,11 @@
             let data = result.data;
             if(data.code === 200){
               console.log(data.data.datas);
-            }else {
               this.$message.success("登录成功!");
+              let staff_id = data.data.datas.staff_id;
+              this.$store.commit('updateStaffId', staff_id)
+              this.$router.replace("/home")
+            }else {
               this.$message.error(data.data.datas);
             }
           }).catch(error=> {
@@ -76,10 +79,6 @@
         }).catch(err => {
           this.$message.error("验证失败!");
         });
-
-        //登录失败消息
-        // console.log(this.loginForm.username, this.loginForm.password);
-
       },
       resetLoginForm() {
         this.$confirm('确定重置密码?', '提示', {

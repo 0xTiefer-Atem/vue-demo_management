@@ -9,8 +9,8 @@ import store from "./store";
 import './assets/css/global.css'
 
 
-Vue.use(ElementUI)
-Vue.config.productionTip = false
+Vue.use(ElementUI);
+Vue.config.productionTip = false;
 
 new Vue({
   router,

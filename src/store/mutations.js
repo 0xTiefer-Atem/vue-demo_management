@@ -8,6 +8,10 @@ export default {
   sub(state) {
     state.counter--
   },
+  updateStaffId(state, payLoad){
+    state.staff_id = payLoad
+    console.log(state.staff_id);
+  },
 
   //额外参数叫做payload 载荷
   addCount(state, payLoad) {
