@@ -19,13 +19,18 @@
         <el-col :span="4"></el-col>
       </el-row>
 <!--      用户列表区域-->
-      <el-table :data="appointmentList" border stripe>
+      <el-table :data="appointmentList" border stripe >
+        <el-table-column type="index"></el-table-column>
         <el-table-column label="预约号" prop="reserveId"></el-table-column>
         <el-table-column label="患者姓名" prop="userName"></el-table-column>
         <el-table-column label="科室" prop="cliName"></el-table-column>
         <el-table-column label="医生" prop="staffName"></el-table-column>
         <el-table-column label="预约时间" prop="reserveTime"></el-table-column>
-        <el-table-column label="操作"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button type="primary" icon="el-icon-edit" size="small">挂号</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
   </div>
