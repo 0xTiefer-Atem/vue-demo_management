@@ -15,33 +15,28 @@
 <!--        侧边栏菜单区域-->
         <el-menu background-color="#333744"
                 text-color="#fff"
-                active-text-color="#ffd04b">
+                active-text-color="#409eff">
 <!--          一级菜单-->
           <el-menu-item index="1">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航一</span>
+            <i class="el-icon-s-management"></i>
+            <span slot="title">预约管理</span>
           </el-menu-item>
           <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <i class="el-icon-s-claim"></i>
+            <span slot="title">排号管理</span>
           </el-menu-item>
           <el-menu-item index="3">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航三</span>
+            <i class="el-icon-s-help"></i>
+            <span slot="title">就诊安排</span>
           </el-menu-item>
           <el-menu-item index="4">
             <i class="el-icon-menu"></i>
-            <span slot="title">导航四</span>
+            <span slot="title">病例管理</span>
           </el-menu-item>
           <el-menu-item index="5">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航五</span>
+            <i class="el-icon-s-check"></i>
+            <span slot="title">职工管理</span>
           </el-menu-item>
-          <el-menu-item index="6">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航六</span>
-          </el-menu-item>
-
         </el-menu>
       </el-aside>
 <!--      右侧内容主体-->
