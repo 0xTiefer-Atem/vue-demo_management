@@ -11,7 +11,31 @@
 <!--    页面主体区-->
     <el-container>
 <!--      侧边栏-->
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="200px">
+<!--        侧边栏菜单区域-->
+        <el-menu background-color="#333744"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+<!--          一级菜单-->
+          <el-submenu index="1">
+<!--            一级菜单模板区域-->
+            <template slot="title">
+<!--              一级菜单的图标-->
+              <i class="el-icon-location"></i>
+<!--              一级菜单的文本区域-->
+              <span>导航一</span>
+            </template>
+            <el-menu-item index="1-4-1">
+              <template slot="title">
+                <!--              一级菜单的图标-->
+                <i class="el-icon-location"></i>
+                <!--              一级菜单的文本区域-->
+                <span>二级菜单</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
 <!--      右侧内容主体-->
       <el-main>Main</el-main>
     </el-container>
