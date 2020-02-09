@@ -17,23 +17,31 @@
                 text-color="#fff"
                 active-text-color="#ffd04b">
 <!--          一级菜单-->
-          <el-submenu index="1">
-<!--            一级菜单模板区域-->
-            <template slot="title">
-<!--              一级菜单的图标-->
-              <i class="el-icon-location"></i>
-<!--              一级菜单的文本区域-->
-              <span>导航一</span>
-            </template>
-            <el-menu-item index="1-4-1">
-              <template slot="title">
-                <!--              一级菜单的图标-->
-                <i class="el-icon-location"></i>
-                <!--              一级菜单的文本区域-->
-                <span>二级菜单</span>
-              </template>
-            </el-menu-item>
-          </el-submenu>
+          <el-menu-item index="1">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航一</span>
+          </el-menu-item>
+          <el-menu-item index="2">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航二</span>
+          </el-menu-item>
+          <el-menu-item index="3">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航三</span>
+          </el-menu-item>
+          <el-menu-item index="4">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航四</span>
+          </el-menu-item>
+          <el-menu-item index="5">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航五</span>
+          </el-menu-item>
+          <el-menu-item index="6">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航六</span>
+          </el-menu-item>
+
         </el-menu>
       </el-aside>
 <!--      右侧内容主体-->
@@ -46,7 +54,9 @@
   export default {
     name: "Home",
     data() {
-      return {}
+      return {
+        menuList: []
+      }
     },
     methods: {
       logOut() {
