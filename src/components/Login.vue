@@ -65,11 +65,11 @@
             console.log(result);
             let data = result.data;
             if(data.code === 200){
-              console.log(data.data.datas);
+              // console.log(data.data.datas);
               this.$message.success("登录成功!");
               let staff_id = data.data.datas.staff_id;
               this.$store.commit('updateStaffId', staff_id)
-              this.$router.replace("/home")
+              this.$router.replace("/home/")
             }else {
               this.$message.error(data.data.datas);
             }
