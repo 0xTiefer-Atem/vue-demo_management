@@ -5,7 +5,8 @@
       <div class="avatar_box">
         <img src="../assets/logo.png" alt="">
       </div>
-      <el-form :rules="loginFormRules" :model="loginForm" label-width="0px" class="login_form">
+<!--      登录表单区域-->
+      <el-form ref="loginFormRef" :rules="loginFormRules" :model="loginForm" label-width="0px" class="login_form">
 <!--        用户名-->
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
@@ -18,7 +19,7 @@
 <!--        按钮区域-->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="reset">重置</el-button>
+          <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -62,12 +63,13 @@
           }
         });
       },
-      reset() {
+      resetLoginForm() {
         this.$confirm('确定重置密码?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          this.$refs.loginFormRef.resetFields();
           this.$message({
             type: 'success',
             message: '重置成功!'
