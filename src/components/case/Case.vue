@@ -52,11 +52,11 @@
           </el-col>
           <el-col :span="8">
             <el-form-item  label="数量">
-              <el-input-number  v-model="form.currentNum" :min="1" :max="10"></el-input-number>
+              <el-input-number  v-model="form.currentNum" :min="1" :max="50"></el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-button size="small" type="primary" @click="addMedic">添加</el-button>
+            <el-button type="primary" @click="addMedic">添加</el-button>
           </el-col>
         </el-row>
         <el-row>
@@ -75,11 +75,19 @@
                 </el-table-column>
                 <el-table-column label="操作">
                   <template slot-scope="scope">
-                    <el-button type="danger" @click="deleteById(scope.row)">删除</el-button>
+                    <el-button type="danger" @click="deleteByIndex(scope.$index)">删除</el-button>
                   </template>
                 </el-table-column>
               </el-table>
             </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="6" :offset="6">
+            <el-button type="primary" @click="submitCase">提交</el-button>
+          </el-col>
+          <el-col :span="6" :offset="3">
+            <el-button type="info" >取消</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -95,6 +103,7 @@
         form: {
           medicId: '',
           currentNum: 1,
+          //最初展示的药品名单
           medicMenus:[
             {
               medicId: 1,
@@ -121,6 +130,8 @@
               medicName: '消炎药'
             }
           ],
+
+          //传给后台的数据
           medicList: []
         },
 
@@ -138,11 +149,35 @@
         let medicObj = this.form.medicMenus.find( item => item.medicId === this.form.medicId);
         medicObj.medicNum = this.form.currentNum;
         console.log(medicObj);
-        this.form.medicList.push(medicObj);
+        this.form.medicList.unshift(medicObj);
         console.log(this.form.medicList);
       },
-      deleteById(res){
-        console.log(res);
+
+      //删除药物
+      deleteByIndex(index){
+        console.log(index);
+        let vueInstance = this;
+        this.$confirm('是否删除该药物?', '提示', {
+          confirmButtonText: '删除',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          vueInstance.form.medicList.splice(index, 1);
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消!'
+          });
+        })
+      },
+
+      //提交病例信息
+      submitCase() {
+        console.log(this.userInfo.registerId, this.userInfo.userIllness, this.form.medicList);
       }
     }
   }
