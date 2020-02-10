@@ -35,8 +35,8 @@
       return {
         //这是登录的数据绑定对象
         loginForm: {
-          username: '111111',
-          password: '123456'
+          username: '',
+          password: ''
         },
         loginFormRules: {
           //登录框验证
