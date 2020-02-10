@@ -7,17 +7,23 @@
 
 <!--    上传主体区-->
     <el-card>
-
-      <el-upload
-              class="upload-demo"
-              action=""
-              :on-change="handleChange"
-              :on-remove="handleRemove"
-              :auto-upload="false">
-        <el-button size="small" type="primary">选择文件</el-button>
-        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-      </el-upload>
-
+      <el-row>
+        <el-col :span="4">
+          <el-upload
+                  class="upload-demo"
+                  action=""
+                  :file-list="fileList"
+                  ref="upload"
+                  :on-change="handleChange"
+                  :on-remove="handleRemove"
+                  :auto-upload="false">
+            <el-button type="primary">选择文件</el-button>
+          </el-upload>
+        </el-col>
+        <el-col :span="4">
+          <el-button style="margin-left: 10px;" type="success" @change.prevent="handleChange" @click="submitUpload">上传</el-button>
+        </el-col>
+      </el-row>
       <el-table
               :data="staffInfoList"
               border
@@ -47,18 +53,23 @@
     data() {
       return {
         fileList: [],
-        staffInfoList: []
+        staffInfoList: [],
       };
     },
 
     methods: {
       submitUpload() {
-        this.$refs.upload.submit();
+        console.log(this.staffInfoList);
+        this.$message({
+          type: 'success',
+          message: '上传成功!'
+        });
       },
       handleRemove(file, fileList) {
         this.staffInfoList = [];
         console.log(file, fileList);
       },
+
       //上传文件时处理方法
       handleChange(file, fileList){
         this.fileTemp = file.raw;
@@ -121,17 +132,6 @@
             //此处可对数据进行处理
             let arr = [];
             _this.staffInfoList = outdata;
-            // outdata.map(v => {
-            //     let obj = {}
-            //     obj.code = v['Code']
-            //     obj.name = v['Name']
-            //     obj.pro = v['province']
-            //     obj.cit = v['city']
-            //     obj.dis = v['district']
-            //     arr.push(obj)
-            // });
-            // _this.da=arr;
-            // _this.dalen=arr.length;
             return arr;
           };
           reader.readAsArrayBuffer(f);
