@@ -5,7 +5,8 @@ const Home = () => import('../components/Home');
 const Appointment = () => import('../components/appointment/Appointment');
 const Queue = () => import('../components/queue/Queue');
 const Treatment = () => import('../components/treatment/Treatment');
-const Case = () => import('../components/case/Case')
+const Case = () => import('../components/case/Case');
+const Staff = () => import('../components/staff/Staff');
 import store from "../store/index";
 
 Vue.use(VueRouter)
@@ -47,6 +48,10 @@ const routes = [
       {
         path: 'treatment',
         component: Treatment
+      },
+      {
+        path: 'staff',
+        component: Staff
       }
     ]
   }
