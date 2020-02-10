@@ -105,6 +105,11 @@
         reserveId: "",
       }
     },
+
+    activated() {
+      console.log("appointment active");
+    },
+
     methods: {
       searchByReserveId() {
         //网络请求接口,给appointmentList

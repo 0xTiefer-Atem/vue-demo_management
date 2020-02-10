@@ -68,6 +68,9 @@
         },
       }
     },
+    activated() {
+      console.log("queue active");
+    },
     methods: {
       treatmentById(row_data) {
         console.log(row_data)

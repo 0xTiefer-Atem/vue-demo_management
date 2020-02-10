@@ -143,6 +143,9 @@
         }
       }
     },
+    activated() {
+      console.log("case active");
+    },
     methods: {
       //添加药物
       addMedic() {
