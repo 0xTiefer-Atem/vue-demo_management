@@ -4,9 +4,8 @@
       <el-breadcrumb-item>病例录入</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card>
-      <el-form ref="medicInfoRef" :model="medicInfo" label-width="80px">
+      <el-form ref="illnessInfoRef" :model="illnessInfo" label-width="80px">
         <el-row>
-
 <!--          基本信息-->
           <el-col :span="8">
             <el-form-item class="register-id" label="挂号单:">
@@ -42,8 +41,8 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item  label="药物名称">
-              <el-select v-model="medicInfo.selectedMedicId" placeholder="请选择药物">
-                <el-option v-for="medic in medicInfo.medicMenus"
+              <el-select clearable  v-model="illnessInfo.selectedMedicId" placeholder="请选择药物">
+                <el-option v-for="medic in illnessInfo.medicMenus"
                            :label="medic.medicName"
                            :value="medic.medicId">
                 </el-option>
@@ -52,14 +51,14 @@
           </el-col>
           <el-col :span="8">
             <el-form-item  label="数量">
-              <el-input-number  v-model="medicInfo.currentNum" :min="1" :max="50"></el-input-number>
+              <el-input-number  v-model="illnessInfo.currentNum" :min="1" :max="50"></el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-button class="add-medic" type="primary" @click="addMedic">添加</el-button>
           </el-col>
           <el-col :span="4">
-            <el-tag class="total-price">总价: {{totalPrice}}</el-tag>
+            <el-tag class="total-price">总价: {{this.totalPrice}}</el-tag>
           </el-col>
         </el-row>
         <el-row>
@@ -103,7 +102,7 @@
     name: "Case",
     data() {
       return {
-        medicInfo: {
+        illnessInfo: {
           //当前下拉菜单选中的药物ID
           selectedMedicId: '',
 
@@ -206,7 +205,7 @@
             staffId: '',
             //传给后台的数据
             medicList: [],
-            totalPrice: -1
+            totalPrice: 0
           }
       }
     },
@@ -222,13 +221,14 @@
       //添加药物
       addMedic() {
 
-        let medicObj = this.medicInfo.medicMenus.find( item => item.medicId === this.medicInfo.selectedMedicId);
+        let medicObj = this.illnessInfo.medicMenus.find( item => item.medicId === this.illnessInfo.selectedMedicId);
+
         if(typeof medicObj === 'undefined'){
           this.$message.error('请先选择药物!');
           return
         }
 
-        medicObj.medicNum = this.medicInfo.currentNum;
+        medicObj.medicNum = this.illnessInfo.currentNum;
         console.log(medicObj);
         this.userIllnessInfo.medicList.unshift(medicObj);
         console.log(this.userIllnessInfo.medicList);
@@ -258,22 +258,31 @@
 
       //提交病例信息
       submitCase() {
+        this.getFormMessage();
+        console.log(this.userIllnessInfo);
+        // this.$refs.illnessInfoRef.resetFields();
+        this.getNextUser();
+      },
+      getNextUser() {
+        this.userIllnessInfo.userIllness = '';
+        this.illnessInfo.totalPrice = 0;
+        this.userIllnessInfo.medicList = [];
+        this.illnessInfo.currentNum = 1;
+        // this.$refs.illnessInfoRef.resetFields();
+        this.currentUser = this.queueInfoList.shift();
+      },
+      getFormMessage() {
         //获取表单上的数据
         this.userIllnessInfo.registerId = this.currentUser.registerId;
         this.userIllnessInfo.userId = this.currentUser.userId;
         this.userIllnessInfo.staffId = this.currentUser.staffId;
         this.userIllnessInfo.totalPrice = this.totalPrice;
-
-
-        console.log(this.userIllnessInfo);
-
-        this.currentUser = this.queueInfoList.shift();
       }
     },
     computed: {
       totalPrice() {
         let total = 0;
-        this.userIllnessInfo.medicList.forEach( medic => {
+        this.userIllnessInfo.medicList.forEach(medic => {
           total += medic.medicPrice * medic.medicNum
         });
         return total
