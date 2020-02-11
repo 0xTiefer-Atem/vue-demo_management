@@ -1,0 +1,29 @@
+进入排号界面初始化
+请求地址: /home/queue/registerListInit
+方法: get
+返回数据格式:    json         
+registerList: [
+          {
+            reserveId: "001",
+            userName: 'wq',
+            cliName: '内科',
+            staffName: '华佗',
+            reserveTime: '2020-1-19 8:00:00'
+          },
+          {
+            reserveId: "002",
+            userName: 'wq',
+            cliName: '内科',
+            staffName: '华佗',
+            reserveTime: '2020-2-13 8:00:00',
+            status: 'SUCCESS',
+          }
+        ]
+
+
+
+就诊按钮
+请求地址: /home/queue/treatmentById
+方法: post
+参数: registerId=value
+返回数据格式: json

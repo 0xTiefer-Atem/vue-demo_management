@@ -1,0 +1,48 @@
+用户搜索
+请求地址: /home/appointment/searchByAppointmentId
+方法: post
+参数: appointmentId=value
+返回数据格式:    json    {}     
+appointmentList: [
+          {
+            reserveId: "001",
+            userName: 'wq',
+            cliName: '内科',
+            staffName: '华佗',
+            reserveTime: '2020-1-19 8:00:00'
+          }
+        ]
+
+
+
+
+进入Appointment组件进行请求,初始化
+请求地址: /home/appointment/appointmentListInit
+方法: get
+返回数据格式: json {}
+appointmentList: [
+          {
+            reserveId: "001",
+            userName: 'wq',
+            cliName: '内科',
+            staffName: '华佗',
+            appointmentTime'2020-1-19 8:00:00'
+          },
+          {
+            reserveId: "002",
+            userName: 'wq',
+            cliName: '内科',
+            staffName: '华佗',
+            appointmentTime'2020-2-13 8:00:00'
+          }
+        ]
+
+
+
+
+
+预约界面患者挂号
+请求地址: /home/appointment/registerById
+方法: post
+参数: appointmentId=value
+返回数据格式: json

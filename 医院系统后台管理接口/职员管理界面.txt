@@ -1,0 +1,22 @@
+Staff组件一活动就进行数据初始化
+请求地址: /home/staff/staffListInit
+方法: get
+返回数据格式: json
+
+添加职员功能
+请求地址：/home/staff/addStaff
+方法: post
+参数: addStaff={"staffId":"123456","staffName":"ASD","staffSex":"女","staffPos":"asd","staffTel":"15726337465","staffEntry":"2020-02-18"}
+返回数据格式: json
+
+更新职员接口
+请求地址：/home/staff/updateStaff
+方法： post
+参数：editstaff={"staffId":"123190","staffName":"cde","staffSex":"女","staffPos":"专家","staffTel":"15810227777","staffEntry":"2020-1-20"}
+返回数据：json
+
+删除职员接口
+请求地址：/home/staff/deleteSatff
+方法：post
+参数：staffId=value
+返回数据：json
