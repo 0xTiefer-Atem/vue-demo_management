@@ -25,7 +25,7 @@
         </el-col>
       </el-row>
       <el-table
-              :data="staffInfoList"
+              :data="staffWorkList"
               border
               style="width: 100%">
         <el-table-column
@@ -53,20 +53,20 @@
     data() {
       return {
         fileList: [],
-        staffInfoList: [],
+        staffWorkList: [],
       };
     },
 
     methods: {
       submitUpload() {
-        console.log(this.staffInfoList);
+        console.log(this.staffWorkList);
         this.$message({
           type: 'success',
           message: '上传成功!'
         });
       },
       handleRemove(file, fileList) {
-        this.staffInfoList = [];
+        this.staffWorkList = [];
         console.log(file, fileList);
       },
 
@@ -131,7 +131,7 @@
             //outdata就是读取的数据（不包含标题行即表头，表头会作为对象的下标）
             //此处可对数据进行处理
             let arr = [];
-            _this.staffInfoList = outdata;
+            _this.staffWorkList = outdata;
             return arr;
           };
           reader.readAsArrayBuffer(f);
