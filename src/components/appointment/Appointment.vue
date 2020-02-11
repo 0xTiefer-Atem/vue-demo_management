@@ -25,7 +25,7 @@
         <el-table-column label="预约时间" prop="reserveTime"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="registerById(scope.row)" icon="el-icon-edit" size="small">挂号</el-button>
+            <el-button type="primary" @click="registerById(scope.$index, scope.row)" icon="el-icon-edit" size="small">挂号</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -124,8 +124,14 @@
       handleCurrentChange(newPage) {
         console.log(newPage);
       },
-      registerById(data) {
+      registerById(index, data) {
         console.log(data);
+        //进行网络请求
+        this.appointmentList.splice(index, 1);
+        this.$message({
+          type: 'success',
+          message: '挂号成功!'
+        });
       }
     }
   }

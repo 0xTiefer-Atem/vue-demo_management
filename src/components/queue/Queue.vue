@@ -12,7 +12,7 @@
         <el-table-column label="患者姓名" prop="userName"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" @click="treatmentById(scope.row)" icon="el-icon-edit" size="small">就诊</el-button>
+            <el-button type="primary" @click="treatmentById(scope.$index, scope.row)" icon="el-icon-edit" size="small">就诊</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -72,8 +72,13 @@
       console.log("queue active");
     },
     methods: {
-      treatmentById(row_data) {
-        console.log(row_data)
+      treatmentById(index, row_data) {
+        console.log(row_data);
+        this.registerList.splice(index, 1);
+        this.$message({
+          type: 'success',
+          message: '叫号成功!'
+        });
       },
       //监听pagesize的改变
       handleSizeChange(newSize) {
