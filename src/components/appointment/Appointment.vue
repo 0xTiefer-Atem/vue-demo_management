@@ -10,19 +10,19 @@
       <el-row>
         <el-col :span="15">
           <!--      搜索区域-->
-          <el-input placeholder="请患者预约号" v-model="reserveId">
-            <el-button slot="append" icon="el-icon-search" @click="searchByReserveId"></el-button>
+          <el-input placeholder="请患者预约号" v-model="appointmentId">
+            <el-button slot="append" icon="el-icon-search" @click="searchByAppointmentId"></el-button>
           </el-input>
         </el-col>
       </el-row>
 <!--      用户列表区域-->
       <el-table
               :data="appointmentList"
-              :default-sort = "{prop: 'reserveTime', order: 'descending'}"
+              :default-sort = "{prop: 'appointmentTime', order: 'descending'}"
               stripe>
         <el-table-column type="index" label="序列"></el-table-column>
-        <el-table-column label="预约时间" sortable prop="reserveTime"></el-table-column>
-        <el-table-column label="预约号" prop="reserveId"></el-table-column>
+        <el-table-column label="预约时间" sortable prop="appointmentTime"></el-table-column>
+        <el-table-column label="预约号" prop="appointmentId"></el-table-column>
         <el-table-column label="患者姓名" prop="userName" ></el-table-column>
         <el-table-column label="科室" prop="cliName" ></el-table-column>
         <el-table-column label="医生" prop="staffName"></el-table-column>
@@ -52,51 +52,46 @@
       return {
         appointmentList: [
           {
-            reserveId: "001",
+            appointmentId: "001",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
-            reserveTime: '2020-1-19 8:00:00'
+            appointmentTime: '2020-1-19 8:00:00'
           },
           {
-            reserveId: "002",
+            appointmentId: "002",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
-            reserveTime: '2020-2-13 8:00:00',
-            status: 'SUCCESS',
+            appointmentTime: '2020-2-13 8:00:00'
           },
           {
-            reserveId: "003",
+            appointmentId: "003",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
-            reserveTime: '2020-2-14 8:00:00',
-            status: 'SUCCESS',
+            appointmentTime: '2020-2-14 8:00:00'
           },
           {
-            reserveId: "004",
+            appointmentId: "004",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
-            reserveTime: '2020-2-11 8:00:00',
-            status: 'SUCCESS',
+            appointmentTime: '2020-2-11 8:00:00'
           },
           {
-            reserveId: "005",
+            appointmentId: "005",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
-            reserveTime: '2020-1-10 12:00:00',
-            status: 'SUCCESS',
+            appointmentTime: '2020-1-10 12:00:00'
           },
           {
-            reserveId: "006",
+            appointmentId: "006",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
-            reserveTime: '2020-1-10 8:00:00',
-            status: 'SUCCESS',
+            appointmentTime: '2020-1-10 8:00:00'
           }
         ],
         queryInfo: {
@@ -105,19 +100,21 @@
           pageSizes: [10, 20, 30, 40],
           currentPage:1
         },
-        reserveId: "",
+        appointmentId: "",
       }
     },
 
     activated() {
-      //进行http请求
+      //组件一活跃就进行http请求
       console.log("appointment active");
     },
 
     methods: {
-      searchByReserveId() {
+
+      //根据搜索id进行http请求
+      searchByAppointmentId() {
         //网络请求接口,给appointmentList
-        console.log(this.reserveId);
+        console.log(this.appointmentId);
       },
       //监听pagesize的改变
       handleSizeChange(newSize) {

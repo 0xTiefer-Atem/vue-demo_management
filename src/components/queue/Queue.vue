@@ -6,8 +6,11 @@
     </el-breadcrumb>
     <el-card>
       <!--      用户叫号区域-->
-      <el-table :data="registerList" stripe>
-        <el-table-column type="index" label="序列"></el-table-column>
+      <el-table :data="registerList"
+                :default-sort = "{prop: 'registerTime', order: 'descending'}"
+                stripe>
+        <el-table-column type="index" label="序列" width="100px"></el-table-column>
+        <el-table-column label="挂号时间" sortable prop="registerTime"></el-table-column>
         <el-table-column label="挂号单" prop="registerId"></el-table-column>
         <el-table-column label="患者姓名" prop="userName"></el-table-column>
         <el-table-column label="操作">
@@ -37,27 +40,33 @@
         registerList: [
           {
             registerId: "001",
-            userName: 'wq'
+            userName: 'wq',
+            registerTime: '2020-1-11 8:00:00'
           },
           {
             registerId: "002",
             userName: 'wq',
+            registerTime: '2020-1-12 8:00:00'
           },
           {
             registerId: "003",
             userName: 'wq',
+            registerTime: '2020-1-13 8:00:00'
           },
           {
             registerId: "004",
             userName: 'wq',
+            registerTime: '2020-1-13 11:00:00'
           },
           {
             registerId: "005",
             userName: 'wq',
+            registerTime: '2020-1-14 8:00:00'
           },
           {
             registerId: "006",
             userName: 'wq',
+            registerTime: '2020-1-15 8:00:00'
           }
         ],
         queryInfo: {
@@ -68,6 +77,8 @@
         },
       }
     },
+
+    //进入排号界面初始化
     activated() {
       console.log("queue active");
     },

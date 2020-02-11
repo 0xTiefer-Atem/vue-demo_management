@@ -20,7 +20,7 @@
 <!--        按钮区域-->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="resetLoginForm">重置</el-button>
+          <el-button type="info" @click="resetLoginForm">清空</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -80,8 +80,10 @@
           this.$message.error("验证失败!");
         });
       },
+
+
       resetLoginForm() {
-        this.$confirm('确定重置密码?', '提示', {
+        this.$confirm('确定清空当前信息?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -89,12 +91,12 @@
           this.$refs.loginFormRef.resetFields();
           this.$message({
             type: 'success',
-            message: '重置成功!'
+            message: '清空成功!'
           });
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '重置失败'
+            message: '清空失败'
           });
         });
       }

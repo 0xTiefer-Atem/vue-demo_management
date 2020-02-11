@@ -16,7 +16,7 @@
 <!--      角色列表区域-->
       <el-table :data="staffInfoList" strip>
 <!--        添加索引列-->
-        <el-table-column type="index" label="序列" width="50px"></el-table-column>
+        <el-table-column type="index" label="序列" width="70px"></el-table-column>
         <el-table-column label="员工编号" prop="staffId" ></el-table-column>
         <el-table-column label="员工名称" prop="staffName" width="80px"></el-table-column>
         <el-table-column label="性别" prop="staffSex" width="70px"></el-table-column>
