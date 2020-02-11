@@ -9,12 +9,12 @@
 <!--      添加角色按钮区-->
       <el-row>
         <el-col>
-          <el-button type="primary" @click="dialogVisible = true">添加职工</el-button>
+          <el-button type="primary" @click="addDialogVisible = true">添加职工</el-button>
         </el-col>
       </el-row>
 
 <!--      角色列表区域-->
-      <el-table :data="staffList" border strip>
+      <el-table :data="staffInfoList" border strip>
 <!--        添加索引列-->
         <el-table-column type="index" label="序列" width="50px"></el-table-column>
         <el-table-column label="员工编号" prop="staffId" ></el-table-column>
@@ -25,48 +25,47 @@
         <el-table-column label="入职时间" prop="staffEntry"></el-table-column>
         <el-table-column label="操作" width="210px">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" icon="el-icon-edit">编辑信息</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="showEditDialog(scope.$index)">编辑信息</el-button>
             <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <!--    添加职工-->
+      <!--    添加职工对话框-->
       <el-dialog
-              title="添加职员"
-              :visible.sync="dialogVisible"
+              title="添加职员信息"
+              :visible.sync="addDialogVisible"
               width="50%"
-              :label-position="'left'"
-              @close="cancelAdd">
+              :label-position="'left'">
         <!--      内容主体区-->
-        <el-form :model="addForm"
+        <el-form :model="addStaffInfoForm"
                  :inline="true"
                  :rules="staffFormRules"
-                 ref="staffFormRef">
+                 ref="addStaffInfoRef">
               <el-form-item label="职员编号" prop="staffId">
-                <el-input v-model="addForm.staffId"></el-input>
+                <el-input v-model="addStaffInfoForm.staffId"></el-input>
               </el-form-item>
 
               <el-form-item  label="职员名称" prop="staffName">
-                <el-input v-model="addForm.staffName"></el-input>
+                <el-input v-model="addStaffInfoForm.staffName"></el-input>
               </el-form-item>
           <br>
               <el-form-item label="职员性别" prop="staffSex">
-                <el-radio-group v-model="addForm.staffSex">
+                <el-radio-group v-model="addStaffInfoForm.staffSex">
                   <el-radio-button label="男"></el-radio-button>
                   <el-radio-button label="女"></el-radio-button>
                 </el-radio-group>
               </el-form-item>
           <br>
               <el-form-item label="联系方式" prop="staffTel">
-                <el-input v-model="addForm.staffTel"></el-input>
+                <el-input v-model="addStaffInfoForm.staffTel"></el-input>
               </el-form-item>
               <el-form-item label="职员职位" prop="staffPos">
-                <el-input v-model="addForm.staffPos"></el-input>
+                <el-input v-model="addStaffInfoForm.staffPos"></el-input>
               </el-form-item>
               <el-form-item label="入职时间" prop="staffEntry">
                 <el-date-picker
-                        v-model="addForm.staffEntry"
+                        v-model="addStaffInfoForm.staffEntry"
                         format="yyyy-MM-d"
                         value-format="yyyy-MM-dd"
                         placeholder="选择时间">
@@ -74,10 +73,56 @@
               </el-form-item>
         </el-form>
         <!--      底部区域-->
-<!--        <span slot="footer">-->
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addStaff">确 定</el-button>
-<!--      </span>-->
+        <span slot="footer">
+          <el-button @click="cancelAdd">取 消</el-button>
+          <el-button type="primary" @click="addStaff">确 定</el-button>
+        </span>
+      </el-dialog>
+
+<!--      修改职员对话框-->
+      <el-dialog
+              title="修改职员信息"
+              :visible.sync="editDialogVisible"
+              width="50%">
+
+        <el-form :model="editStaffInfoForm"
+                 :inline="true"
+                 :rules="staffFormRules"
+                 ref="editStaffInfoRef">
+          <el-form-item label="职员编号" prop="staffId">
+            <el-input :disabled="true" v-model="editStaffInfoForm.staffId"></el-input>
+          </el-form-item>
+
+          <el-form-item  label="职员名称" prop="staffName">
+            <el-input v-model="editStaffInfoForm.staffName"></el-input>
+          </el-form-item>
+          <br>
+          <el-form-item label="职员性别" prop="staffSex">
+            <el-radio-group v-model="editStaffInfoForm.staffSex">
+              <el-radio-button label="男"></el-radio-button>
+              <el-radio-button label="女"></el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+          <br>
+          <el-form-item label="联系方式" prop="staffTel">
+            <el-input v-model="editStaffInfoForm.staffTel"></el-input>
+          </el-form-item>
+          <el-form-item label="职员职位" prop="staffPos">
+            <el-input v-model="editStaffInfoForm.staffPos"></el-input>
+          </el-form-item>
+          <el-form-item label="入职时间" prop="staffEntry">
+            <el-date-picker
+                    v-model="editStaffInfoForm.staffEntry"
+                    format="yyyy-MM-d"
+                    value-format="yyyy-MM-dd"
+                    placeholder="选择时间">
+            </el-date-picker>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="cancelEdit">取 消</el-button>
+          <el-button type="primary" @click="upDateEdit">确 定</el-button>
+        </span>
       </el-dialog>
     </el-card>
 
@@ -98,10 +143,10 @@
         callback(new Error("请输入正确的号"))
       };
       return {
-        staffList: [
+        staffInfoList: [
           {
-            staffId: '123124',
-            staffName: 'zcx',
+            staffId: '123190',
+            staffName: 'cde',
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
@@ -116,49 +161,53 @@
             staffEntry: '2020-1-20 8:00:00'
           },
           {
-            staffId: '123124',
-            staffName: 'zcx',
+            staffId: '123123',
+            staffName: 'dfg',
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
             staffEntry: '2020-1-20 8:00:00'
           },
           {
-            staffId: '123124',
-            staffName: 'zcx',
+            staffId: '123131',
+            staffName: 'bmn',
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
             staffEntry: '2020-1-20 8:00:00'
           },
           {
-            staffId: '123124',
-            staffName: 'zcx',
+            staffId: '123145',
+            staffName: 'dvg',
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
             staffEntry: '2020-1-20 8:00:00'
           },
           {
-            staffId: '123124',
-            staffName: 'zcx',
+            staffId: '123167',
+            staffName: 'dfg',
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
             staffEntry: '2020-1-20 8:00:00'
           },
           {
-            staffId: '123124',
-            staffName: 'zcx',
+            staffId: '123167',
+            staffName: 'rgb',
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
             staffEntry: '2020-1-20 8:00:00'
           }
         ],
-        dialogVisible: false,
+        //添加职员控制变量
+        addDialogVisible: false,
+
+        //修改职员控制变量
+        editDialogVisible: false,
         //添加数据的表单对象
-        addForm: {
+        addStaffInfoForm: {
           staffId: '',
           staffName: '',
           staffSex: '',
@@ -166,6 +215,17 @@
           staffTel: '',
           staffEntry: ''
         },
+
+        //修改数据的表单对象
+        editStaffInfoForm: {
+          staffId: '',
+          staffName: '',
+          staffSex: '',
+          staffPos: '',
+          staffTel: '',
+          staffEntry: ''
+        },
+
         //添加表单的验证规则对象
         staffFormRules: {
           staffId: [
@@ -193,12 +253,63 @@
       }
     },
     methods: {
+      //取消添加职员
       cancelAdd() {
-        this.dialogVisible = false;
-        this.$refs.staffFormRef.resetFields();
+        this.$confirm('确认取消添加操作?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$refs.addStaffInfoRef.resetFields();
+          this.addDialogVisible = false;
+          this.$message({
+            type: 'success',
+            message: '操作成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
       },
+
+      //添加职员
       addStaff() {
-        console.log(this.addForm);
+        console.log(this.addStaffInfoForm);
+      },
+
+      //展示编辑职员的对话框
+      showEditDialog(index) {
+        this.editDialogVisible = true;
+        this.editStaffInfoForm = this.staffInfoList[index];
+        console.log(this.editStaffInfoForm)
+      },
+
+      //确认更新职员
+      upDateEdit() {
+        this.editDialogVisible = false
+      },
+
+      //取消职员编辑
+      cancelEdit() {
+        this.$confirm('确认取消修改职员操作?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$refs.editStaffInfoRef.resetFields();
+          this.editDialogVisible = false;
+          this.$message({
+            type: 'success',
+            message: '操作成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
       }
     }
   }
