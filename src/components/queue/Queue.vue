@@ -6,8 +6,8 @@
     </el-breadcrumb>
     <el-card>
       <!--      用户叫号区域-->
-      <el-table :data="registerList" border stripe>
-        <el-table-column type="index"></el-table-column>
+      <el-table :data="registerList" stripe>
+        <el-table-column type="index" label="序列"></el-table-column>
         <el-table-column label="挂号单" prop="registerId"></el-table-column>
         <el-table-column label="患者姓名" prop="userName"></el-table-column>
         <el-table-column label="操作">

@@ -18,6 +18,7 @@
                   :on-remove="handleRemove"
                   :auto-upload="false">
             <el-button type="primary">选择文件</el-button>
+            <div slot="tip" class="el-upload__tip">一次只能上传一个excel文件</div>
           </el-upload>
         </el-col>
         <el-col :span="4">
@@ -25,17 +26,19 @@
         </el-col>
       </el-row>
       <el-table
-              :data="staffWorkList"
-              border
-              style="width: 100%">
+              :data="staffWorkList" stripe>
+        <el-table-column type="index"
+                         width="100px"
+                        label="序列">
+        </el-table-column>
         <el-table-column
                 prop="staff_id"
-                label="员工编号"
+                label="职员编号"
                 width="180">
         </el-table-column>
         <el-table-column
                 prop="staff_name"
-                label="医生姓名"
+                label="职员姓名"
                 width="180">
         </el-table-column>
         <el-table-column
@@ -91,7 +94,7 @@
         }
       },
 
-      importfxx(obj) {
+      importfxx() {
         let _this = this
         // 通过DOM取文件数据
         this.file = event.currentTarget.files[0];
@@ -131,7 +134,9 @@
             //outdata就是读取的数据（不包含标题行即表头，表头会作为对象的下标）
             //此处可对数据进行处理
             let arr = [];
-            _this.staffWorkList = outdata;
+            outdata.forEach( item => {
+              _this.staffWorkList.unshift(item);
+            });
             return arr;
           };
           reader.readAsArrayBuffer(f);
