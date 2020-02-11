@@ -4,23 +4,23 @@
       <el-breadcrumb-item>病例录入</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card>
-      <el-form ref="form" :model="form" label-width="80px">
+      <el-form ref="medicInfoRef" :model="medicInfo" label-width="80px">
         <el-row>
 
 <!--          基本信息-->
           <el-col :span="8">
             <el-form-item class="register-id" label="挂号单:">
-              <el-tag>{{userInfo.registerId}}</el-tag>
+              <el-tag>{{currentUser.registerId}}</el-tag>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item class="user-name" label="患者姓名:">
-              <el-tag>{{userInfo.userName}}</el-tag>
+              <el-tag>{{currentUser.userName}}</el-tag>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item class="staff-name" label="主治医生:">
-              <el-tag>{{userInfo.staffName}}</el-tag>
+              <el-tag>{{currentUser.staffName}}</el-tag>
             </el-form-item>
           </el-col>
         </el-row>
@@ -34,7 +34,7 @@
                     type="textarea"
                     :autosize="{ minRows: 5, maxRows: 50}"
                     placeholder="请输入内容"
-                    v-model="userInfo.userIllness">
+                    v-model="userIllnessInfo.userIllness">
             </el-input>
           </el-form-item>
         </el-col>
@@ -42,8 +42,8 @@
         <el-row>
           <el-col :span="8">
             <el-form-item  label="药物名称">
-              <el-select v-model="form.medicId" placeholder="请选择药物">
-                <el-option v-for="medic in form.medicMenus"
+              <el-select v-model="medicInfo.selectedMedicId" placeholder="请选择药物">
+                <el-option v-for="medic in medicInfo.medicMenus"
                            :label="medic.medicName"
                            :value="medic.medicId">
                 </el-option>
@@ -52,18 +52,19 @@
           </el-col>
           <el-col :span="8">
             <el-form-item  label="数量">
-              <el-input-number  v-model="form.currentNum" :min="1" :max="50"></el-input-number>
+              <el-input-number  v-model="medicInfo.currentNum" :min="1" :max="50"></el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-button type="primary" @click="addMedic">添加</el-button>
+              <el-tag width="20px">总价: {{totalPrice}}</el-tag>
           </el-col>
         </el-row>
         <el-row>
           <el-col >
             <el-form-item label="药品名单">
               <el-table
-                      :data="form.medicList"
+                      :data="userIllnessInfo.medicList"
                       border>
                 <el-table-column
                         prop="medicName"
@@ -100,60 +101,128 @@
     name: "Case",
     data() {
       return {
-        form: {
-          medicId: '',
+        medicInfo: {
+          //当前下拉菜单选中的药物ID
+          selectedMedicId: '',
+
+          //数字框内的数字
           currentNum: 1,
+
+          
           //最初展示的药品名单
           medicMenus:[
             {
               medicId: 1,
-              medicName: '阿莫西林'
+              medicName: '阿莫西林',
+              medicPrice: 12
             },
             {
               medicId: 2,
-              medicName: '六味地黄丸'
+              medicName: '六味地黄丸',
+              medicPrice: 12
             },
             {
               medicId: 3,
-              medicName: '999感冒灵'
+              medicName: '999感冒灵',
+              medicPrice: 12
             },
             {
               medicId: 4,
-              medicName: '双黄连口服液'
+              medicName: '双黄连口服液',
+              medicPrice: 12
             },
             {
               medicId: 5,
-              medicName: '白加黑'
+              medicName: '白加黑',
+              medicPrice: 12
             },
             {
               medicId: 6,
-              medicName: '消炎药'
+              medicName: '消炎药',
+              medicPrice: 12
             }
           ],
-
-          //传给后台的数据
-          medicList: []
         },
 
-        userInfo: {
-          registerId: '123123',
-          userName: 'qwe',
-          userIllness: '',
-          staffName: 'asd'
-        }
+        //后台请求五个排队病人的队列,排序好的
+        queueInfoList: [
+          {
+            registerId: '111123',
+            userId: 'qwe',
+            userName: 'asd',
+            staffId: '123124',
+            staffName: 'asdasda'
+          },
+          {
+            registerId: '121123',
+            userId: 'qwe',
+            userName: 'asd',
+            staffId: '123124',
+            staffName: '',
+          },
+          {
+            registerId: '123113',
+            userId: 'qwe',
+            userName: 'asd',
+            staffId: '123124',
+            staffName: '',
+          },
+          {
+            registerId: '123121',
+            userId: 'qwe',
+            userName: 'asd',
+            staffId: '123124',
+            staffName: '',
+          },
+
+          {
+            registerId: '122123',
+            userId: 'qwe',
+            userName: 'asd',
+            staffId: '123124',
+            staffName: '',
+          }
+        ],
+
+
+        //界面展示的当前患者信息
+        currentUser: {
+          registerId: '',
+          userId: '',
+          userName: '',
+          staffId: '',
+          staffName: ''
+        },
+
+        //向后台传输的患者病例单
+        userIllnessInfo:
+          {
+            registerId: '123123',
+            userName: 'qwe',
+            userIllness: '',
+            staffName: 'asd',
+            //传给后台的数据
+            medicList: [],
+            totalPrice: -1
+          }
       }
     },
+
+    //组件一活跃，就请求前五个排队患者，取第一个进行展示
     activated() {
       console.log("case active");
+      console.log(this.queueInfoList);
+      this.currentUser = this.queueInfoList.shift();
+      console.log(this.queueInfoList);
     },
     methods: {
       //添加药物
       addMedic() {
-        let medicObj = this.form.medicMenus.find( item => item.medicId === this.form.medicId);
-        medicObj.medicNum = this.form.currentNum;
+        let medicObj = this.medicInfo.medicMenus.find( item => item.medicId === this.medicInfo.selectedMedicId);
+        medicObj.medicNum = this.medicInfo.currentNum;
         console.log(medicObj);
-        this.form.medicList.unshift(medicObj);
-        console.log(this.form.medicList);
+        this.userIllnessInfo.medicList.unshift(medicObj);
+        console.log(this.userIllnessInfo.medicList);
       },
 
       //删除药物
@@ -165,7 +234,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          vueInstance.form.medicList.splice(index, 1);
+          vueInstance.userIllnessInfo.medicList.splice(index, 1);
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -180,11 +249,21 @@
 
       //提交病例信息
       submitCase() {
-        console.log(this.userInfo.registerId, this.userInfo.userIllness, this.form.medicList);
+        console.log(this.userIllnessInfo.registerId, this.userIllnessInfo.userIllness, this.userIllnessInfo.medicList);
+      }
+    },
+    computed: {
+      totalPrice() {
+        let total = 0;
+        this.userIllnessInfo.medicList.forEach( medic => {
+          total += medic.medicPrice * medic.medicNum
+        });
+        return total
       }
     }
   }
 </script>
 
 <style scoped>
+
 </style>
