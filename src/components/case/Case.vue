@@ -39,7 +39,7 @@
           </el-form-item>
         </el-col>
         </el-row>
-        <el-row>
+        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item  label="药物名称">
               <el-select v-model="medicInfo.selectedMedicId" placeholder="请选择药物">
@@ -55,9 +55,11 @@
               <el-input-number  v-model="medicInfo.currentNum" :min="1" :max="50"></el-input-number>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-button type="primary" @click="addMedic">添加</el-button>
-              <el-tag width="20px">总价: {{totalPrice}}</el-tag>
+          <el-col :span="4">
+            <el-button class="add-medic" type="primary" @click="addMedic">添加</el-button>
+          </el-col>
+          <el-col :span="4">
+            <el-tag class="total-price">总价: {{totalPrice}}</el-tag>
           </el-col>
         </el-row>
         <el-row>
@@ -108,7 +110,7 @@
           //数字框内的数字
           currentNum: 1,
 
-          
+
           //最初展示的药品名单
           medicMenus:[
             {
@@ -144,11 +146,12 @@
           ],
         },
 
+
         //后台请求五个排队病人的队列,排序好的
         queueInfoList: [
           {
             registerId: '111123',
-            userId: 'qwe',
+            userId: '001',
             userName: 'asd',
             staffId: '123124',
             staffName: 'asdasda'
@@ -194,13 +197,13 @@
           staffName: ''
         },
 
+
         //向后台传输的患者病例单
-        userIllnessInfo:
-          {
-            registerId: '123123',
-            userName: 'qwe',
+        userIllnessInfo: {
+            registerId: '',
+            userId: '',
             userIllness: '',
-            staffName: 'asd',
+            staffId: '',
             //传给后台的数据
             medicList: [],
             totalPrice: -1
@@ -218,7 +221,13 @@
     methods: {
       //添加药物
       addMedic() {
+
         let medicObj = this.medicInfo.medicMenus.find( item => item.medicId === this.medicInfo.selectedMedicId);
+        if(typeof medicObj === 'undefined'){
+          this.$message.error('请先选择药物!');
+          return
+        }
+
         medicObj.medicNum = this.medicInfo.currentNum;
         console.log(medicObj);
         this.userIllnessInfo.medicList.unshift(medicObj);
@@ -249,7 +258,16 @@
 
       //提交病例信息
       submitCase() {
-        console.log(this.userIllnessInfo.registerId, this.userIllnessInfo.userIllness, this.userIllnessInfo.medicList);
+        //获取表单上的数据
+        this.userIllnessInfo.registerId = this.currentUser.registerId;
+        this.userIllnessInfo.userId = this.currentUser.userId;
+        this.userIllnessInfo.staffId = this.currentUser.staffId;
+        this.userIllnessInfo.totalPrice = this.totalPrice;
+
+
+        console.log(this.userIllnessInfo);
+
+        this.currentUser = this.queueInfoList.shift();
       }
     },
     computed: {
@@ -265,5 +283,4 @@
 </script>
 
 <style scoped>
-
 </style>
