@@ -62,7 +62,7 @@
 
     methods: {
       submitUpload() {
-        console.log(this.staffWorkList);
+        console.log(JSON.stringify(this.staffWorkList));
         this.$message({
           type: 'success',
           message: '上传成功!'

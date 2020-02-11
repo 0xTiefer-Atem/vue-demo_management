@@ -26,7 +26,7 @@
         <el-table-column label="操作" width="210px">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" icon="el-icon-edit" @click="showEditDialog(scope.$index)">编辑信息</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteStaff(scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -150,7 +150,7 @@
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
-            staffEntry: '2020-1-20 8:00:00'
+            staffEntry: '2020-1-20'
           },
           {
             staffId: '123124',
@@ -158,7 +158,7 @@
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
-            staffEntry: '2020-1-20 8:00:00'
+            staffEntry: '2020-1-20'
           },
           {
             staffId: '123123',
@@ -166,7 +166,7 @@
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
-            staffEntry: '2020-1-20 8:00:00'
+            staffEntry: '2020-1-20'
           },
           {
             staffId: '123131',
@@ -174,7 +174,7 @@
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
-            staffEntry: '2020-1-20 8:00:00'
+            staffEntry: '2020-1-20'
           },
           {
             staffId: '123145',
@@ -182,7 +182,7 @@
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
-            staffEntry: '2020-1-20 8:00:00'
+            staffEntry: '2020-1-20'
           },
           {
             staffId: '123167',
@@ -190,7 +190,7 @@
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
-            staffEntry: '2020-1-20 8:00:00'
+            staffEntry: '2020-1-20'
           },
           {
             staffId: '123167',
@@ -198,7 +198,7 @@
             staffSex: '男',
             staffPos: '专家',
             staffTel: '15810227777',
-            staffEntry: '2020-1-20 8:00:00'
+            staffEntry: '2020-1-20'
           }
         ],
         //添加职员控制变量
@@ -276,7 +276,7 @@
 
       //添加职员
       addStaff() {
-        console.log(this.addStaffInfoForm);
+        console.log(JSON.stringify(this.addStaffInfoForm));
       },
 
       //展示编辑职员的对话框
@@ -288,7 +288,15 @@
 
       //确认更新职员
       upDateEdit() {
-        this.editDialogVisible = false
+        this.editDialogVisible = false;
+        console.log(JSON.stringify(this.editStaffInfoForm));
+      },
+
+
+      deleteStaff(index) {
+        let staffId = this.staffInfoList[index].staffId;
+        console.log(staffId);
+        this.staffInfoList.splice(index, 1)
       },
 
       //取消职员编辑

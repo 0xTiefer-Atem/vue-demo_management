@@ -31,6 +31,7 @@
             <el-input
                     class="form-textarea"
                     type="textarea"
+                    :disabled="flag"
                     :autosize="{ minRows: 5, maxRows: 50}"
                     placeholder="请输入内容"
                     v-model="userIllnessInfo.userIllness">
@@ -41,7 +42,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item  label="药物名称">
-              <el-select clearable  v-model="illnessInfo.selectedMedicId" placeholder="请选择药物">
+              <el-select clearable :disabled="flag"  v-model="illnessInfo.selectedMedicId" placeholder="请选择药物">
                 <el-option v-for="medic in illnessInfo.medicMenus"
                            :label="medic.medicName"
                            :value="medic.medicId">
@@ -51,11 +52,11 @@
           </el-col>
           <el-col :span="8">
             <el-form-item  label="数量">
-              <el-input-number  v-model="illnessInfo.currentNum" :min="1" :max="50"></el-input-number>
+              <el-input-number :disabled="flag" v-model="illnessInfo.currentNum" :min="1" :max="50"></el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-button class="add-medic" type="primary" @click="addMedic">添加</el-button>
+            <el-button :disabled="flag" class="add-medic" type="primary" @click="addMedic">添加</el-button>
           </el-col>
           <el-col :span="4">
             <el-tag class="total-price">总价: {{this.totalPrice}}</el-tag>
@@ -86,10 +87,10 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="6" :offset="6">
-            <el-button type="primary" @click="submitCase">提交</el-button>
+            <el-button :disabled="flag" type="primary" @click="submitCase">提交</el-button>
           </el-col>
           <el-col :span="6" :offset="3">
-            <el-button type="info" >取消</el-button>
+            <el-button type="info" :disabled="flag" >取消</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -145,6 +146,8 @@
           ],
         },
 
+        //控件可用不可用
+        flag: false,
 
         //后台请求五个排队病人的队列,排序好的
         queueInfoList: [
@@ -160,21 +163,21 @@
             userId: 'qwe',
             userName: 'asd',
             staffId: '123124',
-            staffName: '',
+            staffName: 'asdasd',
           },
           {
             registerId: '123113',
             userId: 'qwe',
             userName: 'asd',
             staffId: '123124',
-            staffName: '',
+            staffName: 'asdasd',
           },
           {
             registerId: '123121',
             userId: 'qwe',
             userName: 'asd',
             staffId: '123124',
-            staffName: '',
+            staffName: 'asdasd',
           },
 
           {
@@ -182,7 +185,7 @@
             userId: 'qwe',
             userName: 'asd',
             staffId: '123124',
-            staffName: '',
+            staffName: 'asdasdasd',
           }
         ],
 
@@ -210,12 +213,12 @@
       }
     },
 
-    //组件一活跃，就请求前五个排队患者，取第一个进行展示
+    //组件一活跃，就请求最多个六个排队患者，取第一个进行展示
     activated() {
       console.log("case active");
-      console.log(this.queueInfoList);
+      // console.log(this.queueInfoList);
       this.currentUser = this.queueInfoList.shift();
-      console.log(this.queueInfoList);
+      // console.log(this.queueInfoList);
     },
     methods: {
       //添加药物
@@ -229,8 +232,8 @@
         }
 
         medicObj.medicNum = this.illnessInfo.currentNum;
-        console.log(medicObj);
         this.userIllnessInfo.medicList.unshift(medicObj);
+        this.illnessInfo.currentNum = 1;
         console.log(this.userIllnessInfo.medicList);
       },
 
@@ -259,16 +262,35 @@
       //提交病例信息
       submitCase() {
         this.getFormMessage();
-        console.log(this.userIllnessInfo);
+        console.log(this.userIllnessInfo);;
+        console.log(JSON.stringify(this.userIllnessInfo));
+
+
         // this.$refs.illnessInfoRef.resetFields();
-        this.getNextUser();
+
+        setTimeout(() => {
+          this.getNextUser()
+        },2000)
       },
+
       getNextUser() {
         this.userIllnessInfo.userIllness = '';
         this.illnessInfo.totalPrice = 0;
         this.userIllnessInfo.medicList = [];
         this.illnessInfo.currentNum = 1;
-        // this.$refs.illnessInfoRef.resetFields();
+        if(this.queueInfoList.length === 0) {
+          this.currentUser.registerId = '';
+          this.currentUser.userName = '';
+          this.currentUser.staffName = '';
+          this.flag = true;
+          this.$message({
+            showClose: true,
+            duration: 0,
+            message: '今天的病人已看完，请注意休息',
+            type: 'success'
+          });
+          return
+        }
         this.currentUser = this.queueInfoList.shift();
       },
       getFormMessage() {
