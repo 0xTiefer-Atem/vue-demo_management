@@ -150,7 +150,7 @@
         flag: false,
 
         //后台请求五个排队病人的队列,排序好的
-        queueInfoList: [
+        caseQueueInfoList: [
           {
             registerId: '111123',
             userId: '001',
@@ -216,9 +216,9 @@
     //组件一活跃，就请求最多个六个排队患者，取第一个进行展示
     activated() {
       console.log("case active");
-      // console.log(this.queueInfoList);
-      this.currentUser = this.queueInfoList.shift();
-      // console.log(this.queueInfoList);
+      // console.log(this.caseQueueInfoList);
+      this.currentUser = this.caseQueueInfoList.shift();
+      // console.log(this.caseQueueInfoList);
     },
     methods: {
       //添加药物
@@ -278,7 +278,7 @@
         this.illnessInfo.totalPrice = 0;
         this.userIllnessInfo.medicList = [];
         this.illnessInfo.currentNum = 1;
-        if(this.queueInfoList.length === 0) {
+        if(this.caseQueueInfoList.length === 0) {
           this.currentUser.registerId = '';
           this.currentUser.userName = '';
           this.currentUser.staffName = '';
@@ -291,7 +291,7 @@
           });
           return
         }
-        this.currentUser = this.queueInfoList.shift();
+        this.currentUser = this.caseQueueInfoList.shift();
       },
       getFormMessage() {
         //获取表单上的数据
