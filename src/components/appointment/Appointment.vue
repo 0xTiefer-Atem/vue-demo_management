@@ -113,6 +113,16 @@
 
       registerById(index, data) {
         console.log(data);
+        request({
+          url: '/home/appointment/',
+          method: 'post',
+          params: {
+            appointmentId: this.appointmentId
+        }).then(result => {
+
+        }).catch(err => {
+
+        });
         //进行网络请求
         this.appointmentList.splice(index, 1);
         this.$message({
