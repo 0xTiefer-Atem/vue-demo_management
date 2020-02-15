@@ -46,54 +46,13 @@
 </template>
 
 <script>
+  import {request} from "../../network/request";
+
   export default {
     name: "Appointment",
     data() {
       return {
-        appointmentList: [
-          {
-            appointmentId: "001",
-            userName: 'wq',
-            cliName: '内科',
-            staffName: '华佗',
-            appointmentTime: '2020-1-19 8:00:00'
-          },
-          {
-            appointmentId: "002",
-            userName: 'wq',
-            cliName: '内科',
-            staffName: '华佗',
-            appointmentTime: '2020-2-13 8:00:00'
-          },
-          {
-            appointmentId: "003",
-            userName: 'wq',
-            cliName: '内科',
-            staffName: '华佗',
-            appointmentTime: '2020-2-14 8:00:00'
-          },
-          {
-            appointmentId: "004",
-            userName: 'wq',
-            cliName: '内科',
-            staffName: '华佗',
-            appointmentTime: '2020-2-11 8:00:00'
-          },
-          {
-            appointmentId: "005",
-            userName: 'wq',
-            cliName: '内科',
-            staffName: '华佗',
-            appointmentTime: '2020-1-10 12:00:00'
-          },
-          {
-            appointmentId: "006",
-            userName: 'wq',
-            cliName: '内科',
-            staffName: '华佗',
-            appointmentTime: '2020-1-10 8:00:00'
-          }
-        ],
+        appointmentList: [],
         queryInfo: {
           totalNumber: 40,
           pageSize: 10,
@@ -107,6 +66,17 @@
     activated() {
       //组件一活跃就进行http请求
       console.log("appointment active");
+      request({
+        url: '/home/appointment/appointmentListInit'
+      }).then(responseData => {
+        let data = responseData.data;
+        if(data.status === 200){
+          console.log(data);
+          this.appointmentList = data.result.data;
+        }
+      }).catch(err =>{
+        console.log(err);
+    });
     },
 
     methods: {
@@ -115,6 +85,21 @@
       searchByAppointmentId() {
         //网络请求接口,给appointmentList
         console.log(this.appointmentId);
+        request({
+          url: '/home/appointment/searchByAppointmentId',
+          method: 'post',
+          params: {
+            appointmentId: this.appointmentId
+          }
+        }).then(responseData => {
+          let data = responseData.data;
+          if(data.status === 200){
+            console.log(data);
+            this.appointmentList = data.result.data;
+          }
+        }).catch(err =>{
+          console.log(err);
+        });
       },
       //监听pagesize的改变
       handleSizeChange(newSize) {
