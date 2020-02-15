@@ -42,7 +42,7 @@ appointmentList: [
 
 
 预约界面患者挂号
-请求地址: /home/appointment/registerById
+请求地址: /home/register/registerById
 方法: post
 参数: appointmentId=value
 返回数据格式: json
