@@ -76,6 +76,10 @@
         }
       }).catch(err =>{
         console.log(err);
+        this.$message({
+          type: 'error',
+          message: '查询失败!'
+        });
     });
     },
 
@@ -99,6 +103,10 @@
           }
         }).catch(err =>{
           console.log(err);
+          this.$message({
+            type: 'error',
+            message: '查询失败!'
+          });
         });
       },
       //监听pagesize的改变
@@ -117,18 +125,32 @@
           url: '/home/appointment/',
           method: 'post',
           params: {
-            appointmentId: this.appointmentId
-        }).then(result => {
-
+            appointmentId: data.appointmentId,
+            staffId: data.staffId,
+            userId: data.userId
+          }
+        }).then(responseData => {
+          let data = responseData.data;
+          if(data.status === 200){
+            //进行网络请求
+            this.appointmentList.splice(index, 1);
+            this.$message({
+              type: 'success',
+              message: '挂号成功!'
+            });
+          }else {
+            this.$message({
+              type: 'error',
+              message: '挂号操作失败!'
+            });
+          }
         }).catch(err => {
+          this.$message({
+            type: 'error',
+            message: '因网络波动,操作失败'
+          });
+        });
 
-        });
-        //进行网络请求
-        this.appointmentList.splice(index, 1);
-        this.$message({
-          type: 'success',
-          message: '挂号成功!'
-        });
       }
     }
   }
