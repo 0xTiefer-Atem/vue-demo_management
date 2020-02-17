@@ -73,12 +73,21 @@
         if(data.status === 200){
           console.log(data);
           this.appointmentList = data.result.data;
+          this.$message({
+            type: 'success',
+            message: '预约列表查询成功!'
+          });
+        }else {
+          this.$message({
+            type: 'error',
+            message: '预约列表查询失败!'
+          });
         }
       }).catch(err =>{
         console.log(err);
         this.$message({
           type: 'error',
-          message: '查询失败!'
+          message: '因网络波动,操作失败!'
         });
     });
     },
@@ -104,12 +113,17 @@
               type: 'success',
               message: '预约列表查询成功!'
             });
+          }else {
+            this.$message({
+              type: 'error',
+              message: '预约列表查询失败!'
+            });
           }
         }).catch(err =>{
           console.log(err);
           this.$message({
             type: 'error',
-            message: '预约列表查询失败!'
+            message: '因网络波动,操作失败!'
           });
         });
       },
