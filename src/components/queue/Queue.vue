@@ -111,13 +111,38 @@
       console.log("queue active");
     },
     methods: {
-      treatmentById(index, row_data) {
-        console.log(row_data);
-        this.registerList.splice(index, 1);
-        this.$message({
-          type: 'success',
-          message: '叫号成功!'
+      treatmentById(index, rowData) {
+        console.log(rowData);
+
+        // 点击就诊请求
+        request({
+          url: '/home/queue/treatmentById',
+          method: 'post',
+          params: {
+            registerId: rowData.registerId
+          }
+        }).then(responseData => {
+          let data = responseData.data;
+          if(data.status === 200) {
+            this.registerList.splice(index, 1);
+            this.$message({
+              type: 'success',
+              message: '排号成功!'
+            });
+          }else  {
+            this.$message({
+              type: 'error',
+              message: '排号失败!'
+            });
+          }
+        }).catch(err => {
+          console.log(err);
+          this.$message({
+            type: 'error',
+            message: '网络错误!'
+          });
         });
+
       },
       //监听pagesize的改变
       handleSizeChange(newSize) {
