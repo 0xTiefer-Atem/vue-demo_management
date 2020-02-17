@@ -1,9 +1,9 @@
 病例组件一活跃就请求六个数据，六个看完就没了，排序好的
-请求地址: /home/case/caseQueueInfoListInit
+请求地址: /home/case/treatmentQueueInfoListInit
 方法: post
 参数: staffId=value
 返回数据格式:    json    {}     
-caseQueueInfoList: [
+treatmentQueueInfoList: [
           {
               registerId: '111123',
               userId: '001',

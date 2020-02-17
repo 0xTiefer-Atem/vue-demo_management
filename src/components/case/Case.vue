@@ -152,7 +152,7 @@
         flag: false,
 
         //后台请求五个排队病人的队列,排序好的
-        caseQueueInfoList: [],
+        treatmentQueueInfoList: [],
 
 
         //界面展示的当前患者信息
@@ -182,7 +182,7 @@
     activated() {
       console.log("case active");
       request({
-        url: '/home/case/caseQueueInfoListInit',
+        url: '/home/case/treatmentQueueInfoListInit',
         method: 'post',
         params: {
           staffId: this.$store.state.staffId
@@ -191,8 +191,8 @@
         let data = responseData.data;
         console.log(responseData);
         if(data.status === 200){
-          this.caseQueueInfoList = data.result.data;
-          this.currentUser = this.caseQueueInfoList.shift();
+          this.treatmentQueueInfoList = data.result.data;
+          this.currentUser = this.treatmentQueueInfoList.shift();
           this.$message({
             type: 'success',
             message: '就诊列表初始化查询成功!'
@@ -254,8 +254,13 @@
         this.getFormMessage();
         console.log(this.userIllnessInfo);;
         console.log(JSON.stringify(this.userIllnessInfo));
-
-
+        // request({
+        //
+        // }).then( responseData => {
+        //   console.log(responseData);
+        // }).catch(err => {
+        //   console.log(err);
+        // });
         // this.$refs.illnessInfoRef.resetFields();
 
         setTimeout(() => {
@@ -268,7 +273,7 @@
         this.illnessInfo.totalPrice = 0;
         this.userIllnessInfo.medicList = [];
         this.illnessInfo.currentNum = 1;
-        if(this.caseQueueInfoList.length === 0) {
+        if(this.treatmentQueueInfoList.length === 0) {
           this.currentUser.registerId = '';
           this.currentUser.userName = '';
           this.currentUser.staffName = '';
@@ -281,7 +286,7 @@
           });
           return
         }
-        this.currentUser = this.caseQueueInfoList.shift();
+        this.currentUser = this.treatmentQueueInfoList.shift();
       },
       getFormMessage() {
         //获取表单上的数据
