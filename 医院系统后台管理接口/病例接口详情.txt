@@ -1,15 +1,15 @@
 病例组件一活跃就请求六个数据，六个看完就没了，排序好的
-请求地址: /home/case/searchByAppointmentId
+请求地址: /home/case/caseQueueInfoListInit
 方法: post
-参数: appointmentId=value
+参数: staffId=value
 返回数据格式:    json    {}     
-appointmentList: [
+caseQueueInfoList: [
           {
-            reserveId: "001",
-            userName: 'wq',
-            cliName: '内科',
-            staffName: '华佗',
-            reserveTime: '2020-1-19 8:00:00'
+              registerId: '111123',
+              userId: '001',
+              userName: 'asd',
+              staffId: '123124',
+              staffName: 'asdasda'
           }
         ]
 
