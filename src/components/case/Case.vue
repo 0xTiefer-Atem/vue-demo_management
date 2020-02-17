@@ -204,6 +204,7 @@
           });
         }
       }).catch(err => {
+        console.log(err);
         this.$message({
           type: 'error',
           message: '网络错误!'
@@ -252,20 +253,37 @@
       //提交病例信息
       submitCase() {
         this.getFormMessage();
-        console.log(this.userIllnessInfo);;
-        console.log(JSON.stringify(this.userIllnessInfo));
-        // request({
-        //
-        // }).then( responseData => {
-        //   console.log(responseData);
-        // }).catch(err => {
-        //   console.log(err);
-        // });
+        let caseData = JSON.stringify(this.userIllnessInfo);
+        console.log(caseData);
+        request({
+          url: '/home/case/insertCaseInfo',
+          method: 'post',
+          params: {
+            caseData: caseData
+          }
+        }).then( responseData => {
+          let data = responseData.data;
+          console.log(data);
+          if (data.status === 200){
+            this.$message({
+              type: 'success',
+              message: '病例信息更新成功!'
+            });
+            this.getNextUser()
+          }else {
+            this.$message({
+              type: 'success',
+              message: '病例信息更新失败!'
+            });
+          }
+        }).catch(err => {
+          console.log(err);
+          this.$message({
+            type: 'error',
+            message: '网络错误!'
+          });
+        });
         // this.$refs.illnessInfoRef.resetFields();
-
-        setTimeout(() => {
-          this.getNextUser()
-        },2000)
       },
 
       getNextUser() {
