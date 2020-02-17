@@ -1,6 +1,7 @@
 进入排号界面初始化
 请求地址: /home/queue/registerListInit
-方法: get
+方法: post
+参数: staffId=value
 返回数据格式:    json         
 registerList: [
           {

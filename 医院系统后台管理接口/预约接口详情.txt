@@ -5,7 +5,7 @@
 返回数据格式:    json    {}     
 appointmentList: [
           {
-            reserveId: "001",
+            appointmentId: "001",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
@@ -22,14 +22,14 @@ appointmentList: [
 返回数据格式: json {}
 appointmentList: [
           {
-            reserveId: "001",
+            appointmentId: "001",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
             appointmentTime'2020-1-19 8:00:00'
           },
           {
-            reserveId: "002",
+            appointmentId: "002",
             userName: 'wq',
             cliName: '内科',
             staffName: '华佗',
@@ -42,7 +42,7 @@ appointmentList: [
 
 
 预约界面患者挂号
-请求地址: /home/register/registerById
+请求地址: /home/queue/registerById
 方法: post
 参数: appointmentId=value
 返回数据格式: json
