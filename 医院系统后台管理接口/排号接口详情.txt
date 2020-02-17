@@ -26,5 +26,5 @@ registerList: [
 就诊按钮
 请求地址: /home/queue/treatmentById
 方法: post
-参数: staffId=value
+参数: registerId=value
 返回数据格式: json
