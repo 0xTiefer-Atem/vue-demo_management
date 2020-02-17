@@ -15,6 +15,6 @@ treatmentQueueInfoList: [
 
 
 提交病例
-请求地址: /home/case/updateCase
+请求地址: /home/case/insertCaseInfo
 方法: post
 参数: caseData={"registerId":"111123","userId":"001","userIllness":"qweqweqweqew","staffId":"123124","medicList":[{"medicId":5,"medicName":"白加黑","medicPrice":12,"medicNum":1},{"medicId":4,"medicName":"双黄连口服液","medicPrice":12,"medicNum":2}],"totalPrice":36}
