@@ -99,6 +99,8 @@
 </template>
 
 <script>
+  import {request} from "../../network/request";
+
   export default {
     name: "Case",
     data() {
@@ -150,44 +152,7 @@
         flag: false,
 
         //后台请求五个排队病人的队列,排序好的
-        caseQueueInfoList: [
-          {
-            registerId: '111123',
-            userId: '001',
-            userName: 'asd',
-            staffId: '123124',
-            staffName: 'asdasda'
-          },
-          {
-            registerId: '121123',
-            userId: 'qwe',
-            userName: 'asd',
-            staffId: '123124',
-            staffName: 'asdasd',
-          },
-          {
-            registerId: '123113',
-            userId: 'qwe',
-            userName: 'asd',
-            staffId: '123124',
-            staffName: 'asdasd',
-          },
-          {
-            registerId: '123121',
-            userId: 'qwe',
-            userName: 'asd',
-            staffId: '123124',
-            staffName: 'asdasd',
-          },
-
-          {
-            registerId: '122123',
-            userId: 'qwe',
-            userName: 'asd',
-            staffId: '123124',
-            staffName: 'asdasdasd',
-          }
-        ],
+        caseQueueInfoList: [],
 
 
         //界面展示的当前患者信息
@@ -216,9 +181,34 @@
     //组件一活跃，就请求最多个六个排队患者，取第一个进行展示
     activated() {
       console.log("case active");
-      // console.log(this.caseQueueInfoList);
-      this.currentUser = this.caseQueueInfoList.shift();
-      // console.log(this.caseQueueInfoList);
+      request({
+        url: '/home/case/caseQueueInfoListInit',
+        method: 'post',
+        params: {
+          staffId: this.$store.state.staffId
+        }
+      }).then(responseData => {
+        let data = responseData.data;
+        console.log(responseData);
+        if(data.status === 200){
+          this.caseQueueInfoList = data.result.data;
+          this.currentUser = this.caseQueueInfoList.shift();
+          this.$message({
+            type: 'success',
+            message: '就诊列表初始化查询成功!'
+          });
+        } else {
+          this.$message({
+            type: 'error',
+            message: '就诊列表初始化查询失败!'
+          });
+        }
+      }).catch(err => {
+        this.$message({
+          type: 'error',
+          message: '网络错误!'
+        });
+      });
     },
     methods: {
       //添加药物
