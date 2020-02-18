@@ -85,7 +85,7 @@
       request({
         url: '/home/queue/registerListInit',
         method: 'post',
-        params: {
+        data: {
           staffId: this.$store.state.staffId
         }
       }).then( responseData => {
@@ -118,7 +118,7 @@
         request({
           url: '/home/queue/treatmentById',
           method: 'post',
-          params: {
+          data: {
             registerId: rowData.registerId
           }
         }).then(responseData => {

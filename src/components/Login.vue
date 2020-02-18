@@ -57,7 +57,7 @@
         this.$refs.loginFormRef.validate().then(res => {
           request({
             url: "/admin/authority",
-            params: {
+            data: {
               'username': this.loginForm.username,
               "password": this.loginForm.password
             }

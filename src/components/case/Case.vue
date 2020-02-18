@@ -185,8 +185,8 @@
       request({
         url: '/home/case/treatmentQueueInfoListInit',
         method: 'post',
-        params: {
-          "staffId": this.$store.state.staffId
+        data: {
+          staffId: this.$store.state.staffId
         }
       }).then(responseData => {
         let data = responseData.data;
