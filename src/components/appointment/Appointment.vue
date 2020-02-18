@@ -140,9 +140,9 @@
       registerById(index, data) {
         console.log(data);
         request({
-          url: '/home/appointment/',
+          url: '/home/queue/registerById',
           method: 'post',
-          params: {
+          data: {
             appointmentId: data.appointmentId,
             staffId: data.staffId,
             userId: data.userId
