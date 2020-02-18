@@ -13,7 +13,7 @@ Vue.use(Vuex);
  //里面放入的对象参数
   //存放一些变量的值
 const state = {
-    staffId: '123001',
+    staffId: '',
   };
 //3. 创建Vuex对象
 const store = new Vuex.Store({
