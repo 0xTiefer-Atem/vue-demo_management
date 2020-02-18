@@ -56,24 +56,25 @@
       login() {
         this.$refs.loginFormRef.validate().then(res => {
           request({
-            url: "/admin/authority",
+            url: "/home/login",
+            method: 'post',
             data: {
-              'username': this.loginForm.username,
+              'staffId': this.loginForm.username,
               "password": this.loginForm.password
             }
           }).then(result => {
             console.log(result);
             let data = result.data;
-            if(data.code === 200){
-              // console.log(data.data.datas);
+            if(data.status === 200){
               this.$message.success("登录成功!");
-              let staff_id = data.data.datas.staff_id;
-              this.$store.commit('updateStaffId', staff_id)
-              this.$router.replace("/home")
+              let staffId = data.result.data.staffId;
+              this.$store.commit('updateStaffId', staffId)
+              // this.$router.replace("/home")
             }else {
-              this.$message.error(data.data.datas);
+              this.$message.error(data.data.msg);
             }
           }).catch(error=> {
+            console.log(error);
             this.$message.error("请求失败!");
           })
         }).catch(err => {
