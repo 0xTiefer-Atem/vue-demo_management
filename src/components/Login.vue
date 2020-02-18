@@ -68,8 +68,8 @@
             if(data.status === 200){
               this.$message.success("登录成功!");
               let staffId = data.result.data.staffId;
-              this.$store.commit('updateStaffId', staffId)
-              // this.$router.replace("/home")
+              this.$store.commit('updateStaffId', staffId);
+              this.$router.replace("/home")
             }else {
               this.$message.error(data.data.msg);
             }
