@@ -45,6 +45,7 @@
               <el-select clearable :disabled="flag"  v-model="illnessInfo.selectedMedicId" placeholder="请选择药物">
                 <el-option v-for="medic in illnessInfo.medicMenus"
                            :label="medic.medicName"
+                           :key="medic.medicId"
                            :value="medic.medicId">
                 </el-option>
               </el-select>
@@ -185,7 +186,7 @@
         url: '/home/case/treatmentQueueInfoListInit',
         method: 'post',
         params: {
-          staffId: this.$store.state.staffId
+          "staffId": this.$store.state.staffId
         }
       }).then(responseData => {
         let data = responseData.data;
@@ -258,7 +259,7 @@
         request({
           url: '/home/case/insertCaseInfo',
           method: 'post',
-          params: {
+          data: {
             caseData: caseData
           }
         }).then( responseData => {
