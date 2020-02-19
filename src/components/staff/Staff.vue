@@ -145,64 +145,7 @@
         callback(new Error("请输入正确的号"))
       };
       return {
-        staffInfoList: [
-          {
-            staffId: '123190',
-            staffName: 'cde',
-            staffSex: '男',
-            staffPos: '专家',
-            staffTel: '15810227777',
-            staffEntry: '2020-1-20'
-          },
-          {
-            staffId: '123124',
-            staffName: 'zcx',
-            staffSex: '男',
-            staffPos: '专家',
-            staffTel: '15810227777',
-            staffEntry: '2020-1-20'
-          },
-          {
-            staffId: '123123',
-            staffName: 'dfg',
-            staffSex: '男',
-            staffPos: '专家',
-            staffTel: '15810227777',
-            staffEntry: '2020-1-20'
-          },
-          {
-            staffId: '123131',
-            staffName: 'bmn',
-            staffSex: '男',
-            staffPos: '专家',
-            staffTel: '15810227777',
-            staffEntry: '2020-1-20'
-          },
-          {
-            staffId: '123145',
-            staffName: 'dvg',
-            staffSex: '男',
-            staffPos: '专家',
-            staffTel: '15810227777',
-            staffEntry: '2020-1-20'
-          },
-          {
-            staffId: '123167',
-            staffName: 'dfg',
-            staffSex: '男',
-            staffPos: '专家',
-            staffTel: '15810227777',
-            staffEntry: '2020-1-20'
-          },
-          {
-            staffId: '123167',
-            staffName: 'rgb',
-            staffSex: '男',
-            staffPos: '专家',
-            staffTel: '15810227777',
-            staffEntry: '2020-1-20'
-          }
-        ],
+        staffInfoList: [],
         //添加职员控制变量
         addDialogVisible: false,
 
@@ -322,9 +265,40 @@
 
 
       deleteStaff(index) {
-        let staffId = this.staffInfoList[index].staffId;
-        console.log(staffId);
-        this.staffInfoList.splice(index, 1)
+        this.$confirm('确认取消修改职员操作?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let staffId = this.staffInfoList[index].staffId;
+          console.log(staffId);
+          request({
+            url: '/home/staff/deleteStaffById',
+            method: 'post',
+            data: {
+              staffId: staffId
+            }
+          }).then( responseData => {
+            let data = responseData.data;
+            if(data.status === 200){
+              this.staffInfoList.splice(index, 1);
+              this.$message({
+                type: 'success',
+                message: '职员删除成功!'
+              });
+            }
+          }).catch(err => {
+            this.$message({
+              type: 'error',
+              message: '因网络波动,操作失败!'
+            });
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
       },
 
       //取消职员编辑
