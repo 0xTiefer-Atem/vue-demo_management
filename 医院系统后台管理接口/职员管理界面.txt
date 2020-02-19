@@ -6,7 +6,7 @@ Staff组件一活动就进行数据初始化
 添加职员功能
 请求地址：/home/staff/addStaff
 方法: post
-参数: addStaff={"staffId":"123456","staffName":"ASD","staffSex":"女","staffPos":"asd","staffTel":"15726337465","staffEntry":"2020-02-18"}
+参数: {"staffInfo":{"staffId":"123456","staffName":"ASD","staffSex":"女","staffPos":"asd","staffTel":"15726337465","staffEntry":"2020-02-18"}}
 返回数据格式: json
 
 更新职员接口
