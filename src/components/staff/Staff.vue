@@ -247,7 +247,34 @@
 
       //添加职员
       addStaff() {
-        console.log(JSON.stringify(this.addStaffInfoForm));
+        let staffInfo = JSON.stringify(this.addStaffInfoForm);
+        request({
+          url: '/home/staff/addStaff',
+          method: 'post',
+          data: {
+            staffInfo: staffInfo
+          }
+        }).then(responseData => {
+          let data = responseData.data;
+          if(data.status === 200){
+            this.$message({
+              type: 'success',
+              message: '职员添加成功!'
+            });
+            this.addDialogVisible = false;
+          }else {
+            this.$message({
+              type: 'error',
+              message: '职员添加失败!'
+            });
+          }
+        }).catch(err => {
+          console.log(err);
+          this.$message({
+            type: 'error',
+            message: '因网络波动,操作失败!'
+          });
+        })
       },
 
       //展示编辑职员的对话框
