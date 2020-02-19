@@ -39,38 +39,7 @@
     name: "Queue",
     data() {
       return {
-        registerList: [
-          {
-            registerId: "001",
-            userName: 'wq',
-            createTime: '2020-1-11 8:00:00'
-          },
-          {
-            registerId: "002",
-            userName: 'wq',
-            createTime: '2020-1-12 8:00:00'
-          },
-          {
-            registerId: "003",
-            userName: 'wq',
-            createTime: '2020-1-13 8:00:00'
-          },
-          {
-            registerId: "004",
-            userName: 'wq',
-            createTime: '2020-1-13 11:00:00'
-          },
-          {
-            registerId: "005",
-            userName: 'wq',
-            createTime: '2020-1-14 8:00:00'
-          },
-          {
-            registerId: "006",
-            userName: 'wq',
-            createTime: '2020-1-15 8:00:00'
-          }
-        ],
+        registerList: [],
         queryInfo: {
           totalNumber: 40,
           pageSize: 10,
