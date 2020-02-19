@@ -4,17 +4,15 @@ const Login = () => import('../components/Login');
 const Home = () => import('../components/Home');
 const Appointment = () => import('../components/appointment/Appointment');
 const Queue = () => import('../components/queue/Queue');
-const Treatment = () => import('../components/treatment/Treatment');
 const Case = () => import('../components/case/Case');
 const Staff = () => import('../components/staff/Staff');
-import store from "../store/index";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
-}
+};
 
 const routes = [
   {
@@ -44,10 +42,6 @@ const routes = [
       {
         path: 'case',
         component: Case
-      },
-      {
-        path: 'treatment',
-        component: Treatment
       },
       {
         path: 'staff',

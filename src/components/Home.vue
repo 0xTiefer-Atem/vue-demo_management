@@ -22,7 +22,7 @@
         :router="true"
         :default-active="activePath">
 <!--          一级菜单-->
-          <el-menu-item v-for="menu in menuList" :index="baseUrl + '' + menu.menuPath"
+          <el-menu-item v-for="menu in menuList" :key="menu.menuName" :index="baseUrl + '' + menu.menuPath"
                         @click="saveNavState(baseUrl + '' + menu.menuPath)">
             <i :class="menu.menuIcon"></i>
             <span slot="title">{{menu.menuName}}</span>
@@ -63,11 +63,6 @@
             menuName: '病例录入',
             menuPath: '/case',
             menuIcon: 'el-icon-s-order'
-          },
-          {
-            menuName: '排班日程',
-            menuPath: '/treatment',
-            menuIcon: 'el-icon-s-help'
           },
           {
             menuName: '职工管理',
