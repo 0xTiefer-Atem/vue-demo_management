@@ -10,9 +10,9 @@ Staff组件一活动就进行数据初始化
 返回数据格式: json
 
 更新职员接口
-请求地址：/home/staff/updateStaff
+请求地址：/home/staff/editStaff
 方法： post
-参数：editstaff={"staffId":"123190","staffName":"cde","staffSex":"女","staffPos":"专家","staffTel":"15810227777","staffEntry":"2020-1-20"}
+参数：editStaff={"staffId":"123190","staffName":"cde","staffSex":"女","staffPos":"专家","staffTel":"15810227777","staffEntry":"2020-1-20"}
 返回数据：json
 
 删除职员接口
