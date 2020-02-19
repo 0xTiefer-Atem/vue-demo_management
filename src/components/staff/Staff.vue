@@ -138,7 +138,7 @@
     data() {
       //验证职员电话
       let checkTel = (rule, value, callback) => {
-        const mobileReg = /^1[3|4|5|7|8][0-9]{9}$/
+        const mobileReg = /^1[3|4|5|7|8][0-9]{9}$/;
         if(mobileReg.test(value)){
           return callback();
         }
@@ -245,6 +245,7 @@
         });
       },
 
+
       //添加职员
       addStaff() {
         let staffInfo = JSON.stringify(this.addStaffInfoForm);
@@ -284,10 +285,36 @@
         console.log(this.editStaffInfoForm)
       },
 
+
       //确认更新职员
       upDateEdit() {
-        this.editDialogVisible = false;
-        console.log(JSON.stringify(this.editStaffInfoForm));
+        let editStaff = JSON.stringify(this.editStaffInfoForm);
+        request({
+          url: '/home/staff/editStaff',
+          method: 'post',
+          data: {
+            editStaff: editStaff
+          }
+        }).then(responseData => {
+          let data = responseData.data;
+          if(data.status === 200){
+            this.$message({
+              type: 'success',
+              message: '职员修改成功!'
+            });
+            this.editDialogVisible = false;
+          }else {
+            this.$message({
+              type: 'error',
+              message: '职员修改失败!'
+            });
+          }
+        }).catch(err => {
+          this.$message({
+            type: 'error',
+            message: '因网络波动,操作失败!'
+          });
+        })
       },
 
 
