@@ -131,6 +131,8 @@
 </template>
 
 <script>
+  import {request} from "../../network/request";
+
   export default {
     name: "Staff",
     data() {
@@ -251,6 +253,32 @@
           ]
         }
       }
+    },
+    activated() {
+      console.log("职员组件初始化");
+      request({
+        url: '/home/staff/staffListInit'
+      }).then( responseData => {
+        let data = responseData.data;
+        if(data.status === 200){
+          this.staffInfoList = data.result.data;
+          this.$message({
+            type: 'success',
+            message: '职员信息初始化成功!'
+          });
+        }else {
+          this.$message({
+            type: 'error',
+            message: '职员信息初始化失败!'
+          });
+        }
+      }).catch( err => {
+        console.log(err);
+        this.$message({
+          type: 'error',
+          message: '因网络波动,操作失败!'
+        });
+      })
     },
     methods: {
       //取消添加职员
