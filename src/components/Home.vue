@@ -81,18 +81,18 @@
       logOut() {
         window.sessionStorage.clear();
         this.$store.commit('logOutUser');
-        this.$router.replace('/login')
+        this.$router.replace('/login');
       },
 
       //点击按钮切换菜单的折叠
       toggleCollapse() {
-        this.isCollapse = !this.isCollapse
+        this.isCollapse = !this.isCollapse;
       },
       //保存链接的激活状态
       saveNavState(activePath) {
         console.log(activePath);
-        window.sessionStorage.setItem('activePath', activePath)
-        this.activePath = activePath
+        window.sessionStorage.setItem('activePath', activePath);
+        this.activePath = activePath;
       }
     }
   }
