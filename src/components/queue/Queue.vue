@@ -105,7 +105,7 @@
       }).catch( err => {
         this.$message({
           type: 'error',
-          message: '网络错误!'
+          message: '因网络波动,操作失败!'
         });
       });
       console.log("queue active");
@@ -139,7 +139,7 @@
           console.log(err);
           this.$message({
             type: 'error',
-            message: '网络错误!'
+            message: '因网络波动,操作失败!'
           });
         });
 
