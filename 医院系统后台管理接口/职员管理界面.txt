@@ -16,7 +16,7 @@ Staff组件一活动就进行数据初始化
 返回数据：json
 
 删除职员接口
-请求地址：/home/staff/deleteSatff
+请求地址：/home/staff/deleteStaffById
 方法：post
 参数：staffId=value
 返回数据：json
