@@ -75,10 +75,8 @@
             }
           }).catch(error=> {
             console.log(error);
-            this.$message.error("请求失败!");
+            this.$message.error("因网络波动,操作失败!");
           })
-        }).catch(err => {
-          this.$message.error("验证失败!");
         });
       },
 
