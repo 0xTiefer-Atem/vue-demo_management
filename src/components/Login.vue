@@ -8,16 +8,20 @@
       <h3 class="title">云智就医后台系统登陆</h3>
 <!--      登录表单区域-->
       <el-form ref="loginFormRef" :rules="loginFormRules" :model="loginForm" label-width="0px" class="login_form">
-<!--        用户名-->
+
+        <!--        用户名-->
         <el-form-item prop="username">
           <el-input placeholder="账号" v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
         </el-form-item>
-<!--        密码-->
+
+
+        <!--        密码-->
         <el-form-item prop="password">
           <el-input placeholder="密码" type="password" v-model="loginForm.password" prefix-icon="el-icon-s-promotion"></el-input>
         </el-form-item>
 
-<!--        按钮区域-->
+
+        <!--        按钮区域-->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">清空</el-button>
@@ -38,6 +42,7 @@
           username: '',
           password: ''
         },
+
         loginFormRules: {
           //登录框验证
           username: [
