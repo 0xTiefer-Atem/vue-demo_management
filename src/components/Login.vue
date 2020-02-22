@@ -58,23 +58,25 @@
       }
     },
     methods: {
+
       login() {
         this.$refs.loginFormRef.validate().then(res => {
           request({
             url: "/home/login",
             method: 'post',
             data: {
-              'staffId': this.loginForm.username,
+              "staffId": this.loginForm.username,
               "password": this.loginForm.password
             }
           }).then(result => {
             console.log(result);
-            let data = result.data;
-            if(data.status === 200){
+            //result是对象，前端获取属性的方法是 对象.属性名，最后再赋值给一个变量对象data
+            let data1 = result.data;
+            if(data1.status === 200){
               this.$message.success("登录成功!");
-              let staffId = data.result.data.staffId;
-              this.$store.commit('updateStaffId', staffId);
-              this.$router.replace("/home")
+              let staffId1 = data1.result.data.staffId;
+              this.$store.commit('updateStaffId', staffId1);//把staffid存到网页某个地方中
+              this.$router.replace("/home")//登录成功进入管理系统界面
             }else {
               this.$message.error(data.data.msg);
             }
