@@ -101,7 +101,7 @@
         request({
           url: '/home/appointment/searchByAppointmentId',
           method: 'post',
-          params: {
+          data: {
             appointmentId: this.appointmentId
           }
         }).then(responseData => {
