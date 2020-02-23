@@ -179,7 +179,7 @@
           ],
           staffName: [
             { required: true, message: '请输入职员名称', trigger: 'blur' },
-            { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }
+            { min: 2, max: 6, message: '长度在 2 到 6 个字符', trigger: 'blur' }
           ],
           staffSex: [
             { required: true, message: '选择职员性别', trigger: 'blur' },
@@ -258,6 +258,7 @@
         }).then(responseData => {
           let data = responseData.data;
           if(data.status === 200){
+            this.staffInfoList.push(staffInfo);
             this.$message({
               type: 'success',
               message: '职员添加成功!'
