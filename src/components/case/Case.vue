@@ -115,38 +115,7 @@
 
 
           //最初展示的药品名单
-          medicMenusList:[
-            {
-              medicId: 1,
-              medicName: '阿莫西林',
-              medicPrice: 12
-            },
-            {
-              medicId: 2,
-              medicName: '六味地黄丸',
-              medicPrice: 12
-            },
-            {
-              medicId: 3,
-              medicName: '999感冒灵',
-              medicPrice: 12
-            },
-            {
-              medicId: 4,
-              medicName: '双黄连口服液',
-              medicPrice: 12
-            },
-            {
-              medicId: 5,
-              medicName: '白加黑',
-              medicPrice: 12
-            },
-            {
-              medicId: 6,
-              medicName: '消炎药',
-              medicPrice: 12
-            }
-          ],
+          medicMenusList:[],
         },
 
         //控件可用不可用
@@ -192,7 +161,8 @@
         let data = responseData.data;
         console.log(responseData);
         if(data.status === 200){
-          this.treatmentQueueInfoList = data.result.data;
+          this.treatmentQueueInfoList = data.result.data.caseQueueInfoList;
+          this.illnessInfo.medicMenusList = data.result.data.medicMenuList;
           this.currentUser = this.treatmentQueueInfoList.shift();
           this.$message({
             type: 'success',
