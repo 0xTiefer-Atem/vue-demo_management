@@ -43,7 +43,7 @@
           <el-col :span="8">
             <el-form-item  label="药物名称">
               <el-select clearable :disabled="flag"  v-model="illnessInfo.selectedMedicId" placeholder="请选择药物">
-                <el-option v-for="medic in illnessInfo.medicMenus"
+                <el-option v-for="medic in illnessInfo.medicMenusList"
                            :label="medic.medicName"
                            :key="medic.medicId"
                            :value="medic.medicId">
@@ -115,7 +115,7 @@
 
 
           //最初展示的药品名单
-          medicMenus:[
+          medicMenusList:[
             {
               medicId: 1,
               medicName: '阿莫西林',
@@ -216,7 +216,7 @@
       //添加药物
       addMedic() {
 
-        let medicObj = this.illnessInfo.medicMenus.find( item => item.medicId === this.illnessInfo.selectedMedicId);
+        let medicObj = this.illnessInfo.medicMenusList.find( item => item.medicId === this.illnessInfo.selectedMedicId);
 
         if(typeof medicObj === 'undefined'){
           this.$message.error('请先选择药物!');
