@@ -8,11 +8,14 @@
 <!--    卡片视图区域-->
     <el-card>
       <el-row>
-        <el-col :span="15">
+        <el-col :span="12">
           <!--      搜索区域-->
           <el-input placeholder="请患者预约号" v-model="appointmentId">
             <el-button slot="append" icon="el-icon-search" @click="searchByAppointmentId"></el-button>
           </el-input>
+        </el-col>
+        <el-col :offset="6" :span="6">
+          <el-button type="primary" @click="addDialogVisible = true">添加新预约信息</el-button>
         </el-col>
       </el-row>
 <!--      用户列表区域-->
@@ -41,6 +44,42 @@
               layout="total, sizes, prev, pager, next, jumper"
               :total="queryInfo.totalNumber">
       </el-pagination>
+
+      <!--    添加预约信息对话框-->
+      <el-dialog
+              title="添加预约信息"
+              :visible.sync="addDialogVisible"
+              width="50%"
+              :label-position="'left'">
+        <!--      内容主体区-->
+        <el-form :model="addAppointmentInfo"
+                 :inline="true"
+                 ref="addAppointmentInfo">
+          <el-form-item label="用户姓名">
+            <el-input v-model="addAppointmentInfo.userName"></el-input>
+          </el-form-item>
+
+          <el-form-item  label="联系方式">
+            <el-input v-model="addAppointmentInfo.userTel"></el-input>
+          </el-form-item>
+          <br>
+          <el-form-item label="预约科室">
+            <el-radio-group v-model="addAppointmentInfo.staffSex">
+              <el-radio-button label="内科(123)"></el-radio-button>
+              <el-radio-button label="外科(122)"></el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item label="预约医生">
+            <el-input v-model="addAppointmentInfo.staffId"></el-input>
+          </el-form-item>
+        </el-form>
+        <!--      底部区域-->
+        <span slot="footer">
+          <el-button >取 消</el-button>
+          <el-button type="primary" >确 定</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -52,6 +91,7 @@
     name: "Appointment",
     data() {
       return {
+        addDialogVisible: false,
         appointmentList: [],
         queryInfo: {
           totalNumber: 40,
@@ -60,6 +100,12 @@
           currentPage:1
         },
         appointmentId: "",
+        addAppointmentInfo: {
+          userName: '',
+          userTel: '',
+          staffId: '',
+          staffName: ''
+        }
       }
     },
 
