@@ -79,7 +79,7 @@
         </span>
       </el-dialog>
 
-<!--      修改职员对话框-->
+<!--      修改职员界面-->
       <el-dialog
               title="修改职员信息"
               :visible.sync="editDialogVisible"
@@ -89,6 +89,7 @@
                  :inline="true"
                  :rules="staffFormRules"
                  ref="editStaffInfoRef">
+
           <el-form-item label="职员编号" prop="staffId">
             <el-input :disabled="true" v-model="editStaffInfoForm.staffId"></el-input>
           </el-form-item>
@@ -97,6 +98,8 @@
             <el-input v-model="editStaffInfoForm.staffName"></el-input>
           </el-form-item>
           <br>
+
+<!--            性别选择器代码-->
           <el-form-item label="职员性别" prop="staffSex">
             <el-radio-group v-model="editStaffInfoForm.staffSex">
               <el-radio-button label="男"></el-radio-button>
@@ -104,12 +107,17 @@
             </el-radio-group>
           </el-form-item>
           <br>
+
+
           <el-form-item label="联系方式" prop="staffTel">
             <el-input v-model="editStaffInfoForm.staffTel"></el-input>
           </el-form-item>
           <el-form-item label="职员职位" prop="staffPos">
             <el-input v-model="editStaffInfoForm.staffPos"></el-input>
           </el-form-item>
+
+
+<!--            日历选择器代码-->
           <el-form-item label="入职时间" prop="staffEntry">
             <el-date-picker
                     v-model="editStaffInfoForm.staffEntry"
@@ -117,10 +125,15 @@
                     value-format="yyyy-MM-dd"
                     placeholder="选择时间">
             </el-date-picker>
+
+
           </el-form-item>
         </el-form>
+
         <span slot="footer" class="dialog-footer">
           <el-button @click="cancelEdit">取 消</el-button>
+
+<!--            修改职员信息对话框确定按钮-->
           <el-button type="primary" @click="upDateEdit">确 定</el-button>
         </span>
       </el-dialog>
@@ -161,7 +174,7 @@
           staffEntry: ''
         },
 
-        //修改数据的表单对象
+        //给 修改数据的表单对象 初始值
         editStaffInfoForm: {
           staffId: '',
           staffName: '',
@@ -197,6 +210,8 @@
         }
       }
     },
+
+    //页面创建，获取初始化数据
     activated() {
       console.log("职员组件初始化");
       request({
@@ -223,6 +238,8 @@
         });
       })
     },
+
+    //存放所有调用的函数
     methods: {
       //取消添加职员
       cancelAdd() {
@@ -282,13 +299,17 @@
       //展示编辑职员的对话框
       showEditDialog(index) {
         this.editDialogVisible = true;
+
+        //讲想要修改的数据(多个属性)赋值给editStaffInfoForm对象
         this.editStaffInfoForm = this.staffInfoList[index];
         console.log(this.editStaffInfoForm)
       },
 
 
-      //确认更新职员
+      //更新数据库职员信息代码
       upDateEdit() {
+
+        //将前端对象转化成json字符串
         let editStaff = JSON.stringify(this.editStaffInfoForm);
         request({
           url: '/home/staff/editStaff',
