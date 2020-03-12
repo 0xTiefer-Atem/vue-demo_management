@@ -112,7 +112,7 @@
 
           //数字框内的数字
           currentNum: 1,
-          
+
           //最初展示的药品名单
           medicMenusList:[],
         },
@@ -162,7 +162,11 @@
         if(data.status === 200){
           this.treatmentQueueInfoList = data.result.data.caseQueueInfoList;
           this.illnessInfo.medicMenusList = data.result.data.medicMenuList;
-          this.currentUser = this.treatmentQueueInfoList.shift();
+          if(this.treatmentQueueInfoList.length === 0) {
+            this.getNextUser();
+          }else {
+            this.currentUser = this.treatmentQueueInfoList.shift();
+          }
           this.$message({
             type: 'success',
             message: '就诊列表初始化查询成功!'
