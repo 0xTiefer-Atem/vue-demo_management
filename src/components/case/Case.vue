@@ -31,7 +31,7 @@
             <el-input
                     class="form-textarea"
                     type="textarea"
-                    :disabled="flag"
+                    :disabled="isable"
                     :autosize="{ minRows: 5, maxRows: 50}"
                     placeholder="请输入内容"
                     v-model="userIllnessInfo.userIllness">
@@ -42,7 +42,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item  label="药物名称">
-              <el-select clearable :disabled="flag"  v-model="illnessInfo.selectedMedicId" placeholder="请选择药物">
+              <el-select clearable :disabled="isable"  v-model="illnessInfo.selectedMedicId" placeholder="请选择药物">
                 <el-option v-for="medic in illnessInfo.medicMenusList"
                            :label="medic.medicName"
                            :key="medic.medicId"
@@ -53,11 +53,11 @@
           </el-col>
           <el-col :span="8">
             <el-form-item  label="数量">
-              <el-input-number :disabled="flag" v-model="illnessInfo.currentNum" :min="1" :max="50"></el-input-number>
+              <el-input-number :disabled="isable" v-model="illnessInfo.currentNum" :min="1" :max="50"></el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-button :disabled="flag" class="add-medic" type="primary" @click="addMedic">添加</el-button>
+            <el-button :disabled="isable" class="add-medic" type="primary" @click="addMedic">添加</el-button>
           </el-col>
           <el-col :span="4">
             <el-tag class="total-price">总价: {{this.totalPrice}}</el-tag>
@@ -88,10 +88,10 @@
         </el-row>
         <el-row :gutter="20">
           <el-col :span="6" :offset="6">
-            <el-button :disabled="flag" type="primary" @click="submitCase">提交</el-button>
+            <el-button :disabled="isable" type="primary" @click="submitCase">提交</el-button>
           </el-col>
           <el-col :span="6" :offset="3">
-            <el-button type="info" :disabled="flag" >取消</el-button>
+            <el-button type="info" :disabled="isable" >取消</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -118,7 +118,7 @@
         },
 
         //控件可用不可用
-        flag: false,
+        isable: false,
 
         //后台请求五个排队病人的队列,排序好的
         treatmentQueueInfoList: [],
@@ -269,7 +269,7 @@
           this.currentUser.registerId = '';
           this.currentUser.userName = '';
           this.currentUser.staffName = '';
-          this.flag = true;
+          this.isable = true;
           this.$message({
             showClose: true,
             duration: 0,
