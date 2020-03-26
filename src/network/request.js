@@ -8,6 +8,8 @@ export function request(config) {
   const instance = axios.create({
     baseURL: 'http://47.107.64.157:8080',
     // timeout: 5000,
+
+    //跨域
     crossDomain:true
 
   });
