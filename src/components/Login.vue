@@ -1,12 +1,12 @@
 <template>
   <div class="login_container">
     <div class="login_box">
-<!--      头像区域-->
+      <!--      头像区域-->
       <div class="avatar_box">
         <img src="../assets/logo.png" alt="">
       </div>
       <h3 class="title">云智就医后台系统登陆</h3>
-<!--      登录表单区域-->
+      <!--      登录表单区域-->
       <el-form ref="loginFormRef" :rules="loginFormRules" :model="loginForm" label-width="0px" class="login_form">
 
         <!--        用户名-->
