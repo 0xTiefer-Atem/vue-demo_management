@@ -1,8 +1,7 @@
 import axios from 'axios'
 
-//方式二
-//最终方法
-//在main.js调用
+//方式
+
 export function request(config) {
   //1. 创建axios实例
   const instance = axios.create({
