@@ -14,9 +14,9 @@
             <el-button slot="append" icon="el-icon-search" @click="searchByAppointmentId"></el-button>
           </el-input>
         </el-col>
-        <el-col :offset="6" :span="6">
-          <el-button type="primary" @click="addDialogVisible = true">添加新预约信息</el-button>
-        </el-col>
+<!--        <el-col :offset="6" :span="6">-->
+<!--          <el-button type="primary" @click="addDialogVisible = true">添加新预约信息</el-button>-->
+<!--        </el-col>-->
       </el-row>
 <!--      用户列表区域-->
       <el-table
