@@ -14,9 +14,6 @@
             <el-button slot="append" icon="el-icon-search" @click="searchByAppointmentId"></el-button>
           </el-input>
         </el-col>
-<!--        <el-col :offset="6" :span="6">-->
-<!--          <el-button type="primary" @click="addDialogVisible = true">添加新预约信息</el-button>-->
-<!--        </el-col>-->
       </el-row>
 <!--      用户列表区域-->
       <el-table
@@ -35,51 +32,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :page-sizes="queryInfo.pageSizes"
-              :page-size="queryInfo.pageSize"
-              :current-page="queryInfo.currentPage"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="queryInfo.totalNumber">
-      </el-pagination>
-
-      <!--    添加预约信息对话框-->
-      <el-dialog
-              title="添加预约信息"
-              :visible.sync="addDialogVisible"
-              width="50%"
-              :label-position="'left'">
-        <!--      内容主体区-->
-        <el-form :model="addAppointmentInfo"
-                 :inline="true"
-                 ref="addAppointmentInfo">
-          <el-form-item label="用户姓名">
-            <el-input v-model="addAppointmentInfo.userName"></el-input>
-          </el-form-item>
-
-          <el-form-item  label="联系方式">
-            <el-input v-model="addAppointmentInfo.userTel"></el-input>
-          </el-form-item>
-          <br>
-          <el-form-item label="预约科室">
-            <el-radio-group v-model="addAppointmentInfo.staffSex">
-              <el-radio-button label="内科(123)"></el-radio-button>
-              <el-radio-button label="外科(122)"></el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-
-          <el-form-item label="预约医生">
-            <el-input v-model="addAppointmentInfo.staffId"></el-input>
-          </el-form-item>
-        </el-form>
-        <!--      底部区域-->
-        <span slot="footer">
-          <el-button >取 消</el-button>
-          <el-button type="primary" >确 定</el-button>
-        </span>
-      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -116,14 +68,14 @@
         url: '/home/appointment/appointmentListInit'
       }).then(responseData => {
         let data = responseData.data;
-        if(data.status === 200){
+        if(data.status === 200){//请求成功时的处理
           console.log(data);
           this.appointmentList = data.result.data;
           this.$message({
             type: 'success',
             message: '预约列表查询成功!'
           });
-        }else {
+        }else {//失败时的处理
           this.$message({
             type: 'error',
             message: '预约列表查询失败!'
@@ -173,18 +125,11 @@
           });
         });
       },
-      //监听pagesize的改变
-      handleSizeChange(newSize) {
-        console.log(newSize);
-        this.queryInfo.pageSize = newSize
-      },
-      //监听新的页码值的改变
-      handleCurrentChange(newPage) {
-        console.log(newPage);
-      },
 
+      //点击挂号按钮时的http请求
       registerById(index, data) {
         console.log(data);
+        //封装需要的数据，自动请求
         request({
           url: '/home/queue/registerById',
           method: 'post',
@@ -193,10 +138,9 @@
             staffId: data.staffId,
             userId: data.userId
           }
-        }).then(responseData => {
+        }).then(responseData => {//请求成功后，处理函数
           let data = responseData.data;
-          if(data.status === 200){
-            //进行网络请求
+          if(data.status === 200){//判断状态码
             this.appointmentList.splice(index, 1);
             this.$message({
               type: 'success',
