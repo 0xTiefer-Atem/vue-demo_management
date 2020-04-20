@@ -5,7 +5,7 @@
       <el-breadcrumb-item>排号管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card>
-      <!--      用户叫号区域-->
+      <!--      挂号之后等待叫号-->
       <el-table :data="registerList"
                 :default-sort = "{prop: 'registerTime', order: 'descending'}"
                 stripe>
@@ -19,15 +19,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :page-sizes="queryInfo.pageSizes"
-              :page-size="queryInfo.pageSize"
-              :current-page="queryInfo.currentPage"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="queryInfo.totalNumber">
-      </el-pagination>
     </el-card>
   </div>
 </template>
@@ -40,17 +31,12 @@
     data() {
       return {
         registerList: [],
-        queryInfo: {
-          totalNumber: 40,
-          pageSize: 10,
-          pageSizes: [10, 20, 30, 40],
-          currentPage:1
-        },
       }
     },
 
     //进入排号界面初始化
     activated() {
+      //http请求，获取已经挂号完成的队列
       request({
         url: '/home/queue/registerListInit',
         method: 'post',
@@ -80,6 +66,8 @@
       console.log("queue active");
     },
     methods: {
+
+      //叫号，进入就诊队列
       treatmentById(index, rowData) {
         console.log(rowData);
 
@@ -112,15 +100,6 @@
           });
         });
 
-      },
-      //监听pagesize的改变
-      handleSizeChange(newSize) {
-        console.log(newSize);
-        this.queryInfo.pageSize = newSize
-      },
-      //监听新的页码值的改变
-      handleCurrentChange(newPage) {
-        console.log(newPage);
       },
     }
   }
