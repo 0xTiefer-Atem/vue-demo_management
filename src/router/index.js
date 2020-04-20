@@ -56,22 +56,5 @@ const router = new VueRouter({
   mode: 'history'
 });
 
-//挂载路由守卫
-// router.beforeEach((to, from, next) => {
-//   // console.log(to);
-//   if(to.path === '/login'){
-//     next();
-//   }
-//
-//   let staff_id = to.params.staff_id;
-//
-//   console.log(staff_id);
-//
-//   if(staff_id === "" || staff_id === undefined){
-//     next('/login')
-//   }else{
-//     next()
-//   }
-// });
 
 export default router
