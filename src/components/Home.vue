@@ -47,7 +47,11 @@
       return {
         //是否折叠
         isCollapse: false,
+
+        //公共路径
         baseUrl: '/home',
+
+        //导航栏上的路径和名称
         menuList: [
           {
             menuName: '预约管理',
@@ -78,6 +82,7 @@
       this.activePath = window.sessionStorage.getItem('activePath');
     },
     methods: {
+      //登出函数
       logOut() {
         window.sessionStorage.clear();
         this.$store.commit('logOutUser');
