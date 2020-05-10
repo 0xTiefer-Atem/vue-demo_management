@@ -3,8 +3,9 @@ export default {
   //上面的state是自动往这里面的函数里传入的
 
   updateStaffId(state, payLoad){
+    console.log(payLoad);
     state.staffId = payLoad;
-    // console.log(state.staff_id);
+    console.log(state.staffId);
   },
   logOutUser(state) {
     state.staffId = ''
