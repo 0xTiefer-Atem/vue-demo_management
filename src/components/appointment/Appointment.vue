@@ -18,10 +18,9 @@
 <!--      用户列表区域-->
       <el-table
               :data="appointmentList"
-              :default-sort = "{prop: 'appointmentTime', order: 'descending'}"
               stripe>
         <el-table-column type="index" label="序列"></el-table-column>
-        <el-table-column label="预约时间" sortable prop="appointmentTime"></el-table-column>
+        <el-table-column label="预约时间" prop="appointmentTime"></el-table-column>
         <el-table-column label="预约号" prop="appointmentId"></el-table-column>
         <el-table-column label="患者姓名" prop="userName" ></el-table-column>
         <el-table-column label="科室" prop="cliName" ></el-table-column>
@@ -63,9 +62,15 @@
 
     activated() {
       //组件一活跃就进行http请求
+      let staffId = this.$store.state.staffId
+      let jsonData = {
+        staffId
+      }
       console.log("appointment active");
       request({
-        url: '/home/appointment/appointmentListInit'
+        url: '/home/appointment/appointmentListInit',
+        method: 'post',
+        data: jsonData
       }).then(responseData => {
         let data = responseData.data;
         if(data.status === 200){//请求成功时的处理
@@ -128,7 +133,7 @@
 
       //点击挂号按钮时的http请求
       registerById(index, data) {
-        console.log(data);
+        console.log(index, data);
         //封装需要的数据，自动请求
         request({
           url: '/home/queue/registerById',
