@@ -7,10 +7,9 @@
     <el-card>
       <!--      挂号之后等待叫号-->
       <el-table :data="registerList"
-                :default-sort = "{prop: 'registerTime', order: 'descending'}"
                 stripe>
         <el-table-column type="index" label="序列" width="100px"></el-table-column>
-        <el-table-column label="挂号时间" sortable prop="createTime"></el-table-column>
+        <el-table-column label="挂号时间" prop="createTime"></el-table-column>
         <el-table-column label="挂号单" prop="registerId"></el-table-column>
         <el-table-column label="患者姓名" prop="userName"></el-table-column>
         <el-table-column label="操作">
@@ -36,13 +35,15 @@
 
     //进入排号界面初始化
     activated() {
+      let staffId = this.$store.state.staffId
+      let jsonData = {
+        staffId
+      }
       //http请求，获取已经挂号完成的队列
       request({
         url: '/home/queue/registerListInit',
         method: 'post',
-        data: {
-          staffId: this.$store.state.staffId
-        }
+        data: jsonData
       }).then( responseData => {
         let data = responseData.data;
         if(data.status === 200){
