@@ -42,35 +42,50 @@
                  :inline="true"
                  :rules="staffFormRules"
                  ref="addStaffInfoRef">
+          <el-row :grunt="24">
+            <el-col :span="12">
               <el-form-item label="职员编号" prop="staffId">
                 <el-input v-model="addStaffInfoForm.staffId"></el-input>
               </el-form-item>
-
+            </el-col>
+            <el-col :span="12">
               <el-form-item  label="职员名称" prop="staffName">
                 <el-input v-model="addStaffInfoForm.staffName"></el-input>
               </el-form-item>
-          <br>
+            </el-col>
+          </el-row>
+          <el-row :grunt="24">
+            <el-col :span="12">
               <el-form-item label="职员性别" prop="staffSex">
                 <el-radio-group v-model="addStaffInfoForm.staffSex">
                   <el-radio-button label="男"></el-radio-button>
                   <el-radio-button label="女"></el-radio-button>
                 </el-radio-group>
               </el-form-item>
-          <br>
+            </el-col>
+            <el-col :span="12">
               <el-form-item label="联系方式" prop="staffTel">
                 <el-input v-model="addStaffInfoForm.staffTel"></el-input>
               </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :grunt="24">
+            <el-col :span="12">
               <el-form-item label="职员职位" prop="staffPos">
                 <el-input v-model="addStaffInfoForm.staffPos"></el-input>
               </el-form-item>
+            </el-col>
+            <el-col :span="12">
               <el-form-item label="入职时间" prop="staffEntry">
                 <el-date-picker
-                        v-model="addStaffInfoForm.staffEntry"
-                        format="yyyy-MM-d"
-                        value-format="yyyy-MM-dd"
-                        placeholder="选择时间">
+                    v-model="addStaffInfoForm.staffEntry"
+                    format="yyyy-MM-d"
+                    value-format="yyyy-MM-dd"
+                    placeholder="选择时间">
                 </el-date-picker>
               </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
         <!--      底部区域-->
         <span slot="footer">
@@ -275,12 +290,26 @@
         }).then(responseData => {
           let data = responseData.data;
           if(data.status === 200){
-            this.staffInfoList.push(staffInfo);
+            let staffInfoForm = {};
+            staffInfoForm.staffId = this.addStaffInfoForm.staffId;
+            staffInfoForm.staffName = this.addStaffInfoForm.staffName;
+            staffInfoForm.staffSex = this.addStaffInfoForm.staffSex;
+            staffInfoForm.staffPos = this.addStaffInfoForm.staffPos;
+            staffInfoForm.staffTel = this.addStaffInfoForm.staffTel;
+            staffInfoForm.staffEntry = this.addStaffInfoForm.staffEntry;
+
+            this.staffInfoList.unshift(staffInfoForm);
             this.$message({
               type: 'success',
               message: '职员添加成功!'
             });
             this.addDialogVisible = false;
+            this.addStaffInfoForm.staffId = '';
+            this.addStaffInfoForm.staffName = '';
+            this.addStaffInfoForm.staffSex = '';
+            this.addStaffInfoForm.staffPos = '';
+            this.addStaffInfoForm.staffTel = '';
+            this.addStaffInfoForm.staffEntry = '';
           }else {
             this.$message({
               type: 'error',
