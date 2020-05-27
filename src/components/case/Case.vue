@@ -169,9 +169,12 @@
                   this.illnessInfo.medicMenusList = data.result.data.medicMenuList;
 
                   if (this.treatmentQueueInfoList.length === 0) {
-
                       this.getNextUser();
                   } else {
+                      this.userIllnessInfo.userIllness = '';
+                      this.illnessInfo.totalPrice = 0;
+                      this.userIllnessInfo.medicList = [];
+                      this.illnessInfo.currentNum = 1;
                       //弹出第一个患者
                       this.currentUser = this.treatmentQueueInfoList.shift();
                   }
@@ -199,12 +202,18 @@
           //添加药物的方法
           addMedic() {
               //先获取想要添加的药物
-              let medicObj = this.illnessInfo.medicMenusList.find(item => item.medicId === this.illnessInfo.selectedMedicId);
+              let medicObj1 = this.illnessInfo.medicMenusList.find(item => item.medicId === this.illnessInfo.selectedMedicId);
 
-              if (typeof medicObj === 'undefined') {
+              if (typeof medicObj1 === 'undefined') {
                   this.$message.error('请先选择药物!');
                   return
               }
+
+              let medicObj = {}
+
+              medicObj.medicId = medicObj1.medicId
+              medicObj.medicName = medicObj1.medicName
+              medicObj.medicPrice = medicObj1.medicPrice
 
               //把药品数量赋值给medicObj
               medicObj.medicNum = this.illnessInfo.currentNum;
